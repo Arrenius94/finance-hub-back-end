@@ -8,23 +8,23 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\arrenius.bessa\\.nuget\\packages\\": {},
+    "C:\\Users\\Arrenius\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
       "projectName": "FinanceHub.Domain",
-      "projectPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
-      "packagesPath": "C:\\Users\\arrenius.bessa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
+      "packagesPath": "C:\\Users\\Arrenius\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\arrenius.bessa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arrenius\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
