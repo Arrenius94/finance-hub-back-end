@@ -1,0 +1,12 @@
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\bin\Debug\net10.0\FinanceHub.Domain.deps.json
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\bin\Debug\net10.0\FinanceHub.Domain.dll
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\bin\Debug\net10.0\FinanceHub.Domain.pdb
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.AssemblyInfoInputs.cache
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.AssemblyInfo.cs
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.csproj.CoreCompileInputs.cache
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.sourcelink.json
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.dll
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\refint\FinanceHub.Domain.dll
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.pdb
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\ref\FinanceHub.Domain.dll

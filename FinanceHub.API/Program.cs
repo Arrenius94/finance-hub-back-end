@@ -1,18 +1,32 @@
+using FinanceHub.Infrastructure.Data; // Ajuste para o namespace onde está seu FinanceHubDbContext
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// --- 1. REGISTRO DE SERVIÇOS ---
+
 builder.Services.AddOpenApi();
+
+// Pegamos a string de conexão do appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DbConnection");
+
+// Configuramos o DbContext para usar PostgreSQL
+builder.Services.AddDbContext<FinanceHubDbContext>(options =>
+    options.UseNpgsql(connectionString, b => b.MigrationsAssembly("FinanceHub.Infrastructure")));
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// --- 2. PIPELINE DE EXECUÇÃO (Middlewares) ---
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+// --- 3. ENDPOINTS ---
 
 var summaries = new[]
 {
@@ -34,6 +48,8 @@ app.MapGet("/weatherforecast", () =>
     .WithName("GetWeatherForecast");
 
 app.Run();
+
+// --- 4. RECORDS / MODELS ---
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {

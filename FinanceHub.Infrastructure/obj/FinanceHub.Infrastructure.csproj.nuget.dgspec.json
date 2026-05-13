@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj": {}
+    "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj": {
+    "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
         "projectName": "FinanceHub.Domain",
-        "projectPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
-        "packagesPath": "C:\\Users\\Arrenius\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\obj\\",
+        "projectPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
+        "packagesPath": "C:\\Users\\arrenius.bessa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arrenius\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arrenius.bessa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -344,20 +344,20 @@
         }
       }
     },
-    "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj": {
+    "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj",
         "projectName": "FinanceHub.Infrastructure",
-        "projectPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Arrenius\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\arrenius.bessa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arrenius\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arrenius.bessa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -373,8 +373,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj": {
-                "projectPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj"
+              "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj": {
+                "projectPath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj"
               }
             }
           }
@@ -394,6 +394,28 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.8, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
