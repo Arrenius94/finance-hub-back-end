@@ -14,7 +14,6 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
 
         builder.Property(x => x.Description).IsRequired().HasMaxLength(150);
         
-       
         builder.Property(x => x.Value).IsRequired().HasPrecision(18, 2);
         
         builder.Property(x => x.DateDue).IsRequired().HasColumnType("date");

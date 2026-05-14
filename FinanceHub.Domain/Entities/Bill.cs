@@ -4,7 +4,7 @@ namespace FinanceHub.Domain.Entities;
 
 public class Bill : BaseEntity
 {
-    public Bill(string description, decimal value, DateTime dateDue, DateTime datePayment, EBillStatus billStatus, int categoryId)
+    public Bill(string description, decimal value, DateTime dateDue, DateTime? datePayment, EBillStatus billStatus, int categoryId)
     {
         Description = description;
         Value = value;

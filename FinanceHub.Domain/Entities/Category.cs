@@ -4,10 +4,10 @@ namespace FinanceHub.Domain.Entities;
 
 public class Category : BaseEntity
 {
-    public Category(string name, ECategoryType type, int userId)
+    public Category(string name, ECategoryType categoryType, int userId)
     {
         Name = name;
-        CategoryType = type;
+        CategoryType = categoryType;
         UserId = userId;
 
         Bills = new List<Bill>();
