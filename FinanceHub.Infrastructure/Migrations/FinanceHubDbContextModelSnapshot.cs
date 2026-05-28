@@ -129,7 +129,7 @@ namespace FinanceHub.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<decimal>("Wallet")
+                    b.Property<decimal?>("Wallet")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 

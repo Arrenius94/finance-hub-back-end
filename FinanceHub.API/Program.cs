@@ -1,5 +1,21 @@
-using FinanceHub.Infrastructure.Data; // Ajuste para o namespace onde está seu FinanceHubDbContext
+using System.Text;
+using FinanceHub.API.Filters;
+using FinanceHub.Application.Services.Users;
+using FinanceHub.Application.TokenJWT;
+using FinanceHub.Domain.DTOS.Input;
+using FinanceHub.Domain.Interfaces.Repositories;
+using FinanceHub.Domain.Interfaces.Security;
+using FinanceHub.Domain.Interfaces.Services;
+using FinanceHub.Domain.Validations.User;
+using FinanceHub.Infrastructure.Data;
+using FinanceHub.Infrastructure.Repositories;
+using FinanceHub.Infrastructure.Security;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +30,65 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 builder.Services.AddDbContext<FinanceHubDbContext>(options =>
     options.UseNpgsql(connectionString, b => b.MigrationsAssembly("FinanceHub.Infrastructure")));
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPassWordHasher, PassWordHasher>();
+builder.Services.AddScoped<ITokenJwt, TokenJwt>();
+builder.Services.AddControllers(op => op.Filters.Add(typeof(ValidationFilter)));
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidation(x =>
+{
+    x.RegisterValidatorsFromAssemblyContaining<CreateUserValidation>();
+});
+
+var jwtKey = builder.Configuration["Jwt:Key"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false; // em dev
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+
+                return context.Response.WriteAsJsonAsync(new
+                {
+                    success = false,
+                    message = "Você precisa estar logado para acessar este recurso."
+                });
+            },
+            OnAuthenticationFailed = context =>
+            {
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+
+                return context.Response.WriteAsJsonAsync(new
+                {
+                    success = false,
+                    message = "Token inválido ou expirado."
+                });
+            }
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -26,6 +101,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 // --- 3. ENDPOINTS ---
 
 var summaries = new[]
@@ -33,19 +111,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
 

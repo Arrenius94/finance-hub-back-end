@@ -2,8 +2,10 @@ namespace FinanceHub.Domain.Entities;
 
 public abstract class BaseEntity
 {
-    protected BaseEntity() {}
-    
-    public int Id { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    protected BaseEntity()
+    {
+        CreatedAt = DateTime.UtcNow;
+    }
+    public int Id { get; protected set; }
+    public DateTime CreatedAt { get; protected set; }
 }

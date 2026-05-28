@@ -1,0 +1,32 @@
+using FinanceHub.Domain.Entities;
+using FinanceHub.Domain.Interfaces.Repositories;
+using FinanceHub.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace FinanceHub.Infrastructure.Repositories;
+
+public class UserRepository : IUserRepository
+{
+    private readonly FinanceHubDbContext _dbContext;
+    public UserRepository(FinanceHubDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
+    public async Task<int> SaveAsync(User user)
+    {
+        await _dbContext.Users.AddAsync(user);
+        await _dbContext.SaveChangesAsync();
+        
+        return user.Id;
+    }
+
+    public async Task<User?> LoginAsync(string email, string passwordHash)
+    {
+        var query = await _dbContext.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Email == email && x.Password == passwordHash);
+        
+        return query;
+    }
+}

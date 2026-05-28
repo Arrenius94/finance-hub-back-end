@@ -21,7 +21,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Password).IsRequired().HasMaxLength(255);
         builder.Property(x => x.DateBirth).HasColumnType("date");
         
-        builder.Property(x => x.Wallet).HasPrecision(18, 2);
+        builder.Property(x => x.Wallet).HasPrecision(18, 2).IsRequired(false);
+        
         builder.Property(x => x.ConfirmEmail).HasDefaultValue(false);
         
         builder.HasMany(x => x.Categories)

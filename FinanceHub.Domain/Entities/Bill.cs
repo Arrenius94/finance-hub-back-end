@@ -4,18 +4,24 @@ namespace FinanceHub.Domain.Entities;
 
 public class Bill : BaseEntity
 {
-    public Bill(string description, decimal value, DateTime dateDue, DateTime? datePayment, EBillStatus billStatus, int categoryId)
+    public Bill(string description, decimal value, DateTime dateDue, DateTime? datePayment, int categoryId)
     {
         Description = description;
         Value = value;
         DateDue = dateDue;
         DatePayment = datePayment;
-        BillStatus = billStatus;
         CategoryId = categoryId;
 
-        BillStatus = dateDue.Date < DateTime.UtcNow.Date
-                     ? EBillStatus.Atrasado
-                     : EBillStatus.Pendente;
+        if (DatePayment.HasValue)
+        {
+            BillStatus = EBillStatus.Paid;
+        }
+        else
+        {
+            BillStatus = dateDue.Date < DateTime.UtcNow.Date
+                ? EBillStatus.Overdue
+                : EBillStatus.Pending;
+        }
     }
 
     public string Description { get; private set; }
@@ -25,4 +31,10 @@ public class Bill : BaseEntity
     public EBillStatus BillStatus { get; private set; }
     public int CategoryId { get; private set; }
     public virtual Category Category { get; private set; }
+    
+    public void RegisterPayment (DateTime datePayment)
+    {
+        DatePayment = datePayment;
+        BillStatus = EBillStatus.Paid;
+    }
 }

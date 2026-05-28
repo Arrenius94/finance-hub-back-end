@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DTOS\Input\" />
-      <Folder Include="DTOS\Output\" />
-      <Folder Include="Interfaces\Repositories\" />
-      <Folder Include="Interfaces\Services\" />
+      <Folder Include="ListValidator\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
     </ItemGroup>
 
 </Project>

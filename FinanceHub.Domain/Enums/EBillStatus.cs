@@ -1,8 +1,13 @@
+using System.ComponentModel;
+
 namespace FinanceHub.Domain.Enums;
 
 public enum EBillStatus
 {
-    Pago = 1,
-    Pendente = 2,
-    Atrasado = 3
+    [Description("Pago")]
+    Paid = 1,
+    [Description("Pendente")]
+    Pending = 2,
+    [Description("Atrasado")]
+    Overdue = 3
 }

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "4/a9y9Qm6UA=",
+  "dgSpecHash": "q6EEK+KZM8g=",
   "success": true,
   "projectFilePath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Arrenius\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
+    "C:\\Users\\Arrenius\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
     "C:\\Users\\Arrenius\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Arrenius\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
     "C:\\Users\\Arrenius\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.11.0\\microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
