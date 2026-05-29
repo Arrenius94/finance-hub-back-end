@@ -21,11 +21,11 @@ public class UserRepository : IUserRepository
         return user.Id;
     }
 
-    public async Task<User?> LoginAsync(string email, string passwordHash)
+    public async Task<User?> GetByEmailAsync(string email)
     {
         var query = await _dbContext.Users
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Email == email && x.Password == passwordHash);
+            .FirstOrDefaultAsync(u => u.Email == email);
         
         return query;
     }

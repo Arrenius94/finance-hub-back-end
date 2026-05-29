@@ -37,8 +37,15 @@ public class UserService : IUserService
         return user.Id;
     }
 
-    public Task<LoginUserResponse?> LoginUserAsync(LoginUser request)
+    public async Task<LoginUserResponse?> LoginUserAsync(LoginUser request)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByEmailAsync(request.Email);
+        if (user == null) return null;
+
+        var isPasswordValid = _passWordHasher.VerifyHashedPassword(request.Password, user.Password);
+        if(!isPasswordValid) return null;
+
+        var token = _tokenJwt.GenerateJwt(request.Email);
+        return new LoginUserResponse{Username = user.Name, Token = token};
     }
 }

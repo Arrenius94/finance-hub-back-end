@@ -7,15 +7,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FinanceHub.Application.TokenJWT;
 
-public class TokenJwt : ITokenJwt
+public sealed class TokenJwt(IConfiguration configuration) : ITokenJwt
 {
-    private readonly IConfiguration _configuration;
-    
     public string GenerateJwt(string email)
     {
-        var issuer = _configuration["Jwt:Issuer"];
-        var audience = _configuration["Jwt:Audience"];
-        var key = _configuration["Jwt:Key"];
+        var issuer = configuration["Jwt:Issuer"];
+        var audience = configuration["Jwt:Audience"];
+        var key = configuration["Jwt:Key"];
 
         if (string.IsNullOrWhiteSpace(key))
             throw new Exception("JWT Key is not configured.");

@@ -23,3 +23,4 @@ C:\Users\Arrenius\RiderProjects\FinanceHub\FinanceHub.Domain\obj\Debug\net10.0\r
 C:\Users\Arrenius\RiderProjects\FinanceHub\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.pdb
 C:\Users\Arrenius\RiderProjects\FinanceHub\FinanceHub.Domain\obj\Debug\net10.0\ref\FinanceHub.Domain.dll
 C:\Users\Arrenius\RiderProjects\FinanceHub\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.csproj.AssemblyReference.cache
+C:\Users\arrenius.bessa\RiderProjects\finance-hub-back-end\FinanceHub.Domain\obj\Debug\net10.0\FinanceHub.Domain.csproj.AssemblyReference.cache

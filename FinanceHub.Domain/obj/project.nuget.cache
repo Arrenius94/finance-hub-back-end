@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "9wJMNJpHNy0=",
+  "dgSpecHash": "bNO9aAGv63M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
+  "projectFilePath": "C:\\Users\\arrenius.bessa\\RiderProjects\\finance-hub-back-end\\FinanceHub.Domain\\FinanceHub.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Arrenius\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
+    "C:\\Users\\arrenius.bessa\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
   ],
   "logs": []
 }

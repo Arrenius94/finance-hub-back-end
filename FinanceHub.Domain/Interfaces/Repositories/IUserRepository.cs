@@ -5,5 +5,5 @@ namespace FinanceHub.Domain.Interfaces.Repositories;
 public interface IUserRepository
 {
     Task <int> SaveAsync(User user);
-    Task <User?> LoginAsync (string email, string passwordHash);
+    Task <User?> GetByEmailAsync (string email);
 }
