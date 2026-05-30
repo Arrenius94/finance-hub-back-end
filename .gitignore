@@ -1,0 +1,25 @@
+# Build artifacts
+bin/
+obj/
+**/bin/
+**/obj/
+
+# IDE / editor files
+.idea/
+.vscode/
+*.sln.DotSettings.user
+*.user
+*.rsuser
+*.suo
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
