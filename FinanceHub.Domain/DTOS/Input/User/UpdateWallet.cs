@@ -1,6 +1,6 @@
 namespace FinanceHub.Domain.DTOS.Input;
 
-public class UpdateWallet
+public class IncreaseWallet
 {
     public decimal Amount { get; set; }
 }

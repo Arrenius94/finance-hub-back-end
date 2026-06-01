@@ -8,5 +8,5 @@ public interface IUserService
 {
     Task<ErrorOr<int>> CreateUserAsync(CreateUser request);
     Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request);
-    Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, decimal amount);
+    Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, IncreaseWallet amount);
 }

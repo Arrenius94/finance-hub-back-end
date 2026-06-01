@@ -56,13 +56,13 @@ public class UserService : IUserService
         return new LoginUserResponse{Username = user.Name, Token = token};
     }
 
-    public async Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, decimal amount)
+    public async Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, IncreaseWallet amount)
     {
         var user = await _userRepository.GetByIdAsync(userId);
         if (user == null)
             return AppErrors.User.NotFound;
         
-        user.UpdateWallet(amount);
+        user.IncreaseValue(amount.Amount);
         await _userRepository.UpdateAsync(user);
         
         return user.Wallet ?? 0;

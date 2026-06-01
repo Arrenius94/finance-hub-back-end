@@ -38,10 +38,10 @@ public class UserController : ControllerBase
     }
     
     [Authorize]
-    [HttpPatch("{id}/wallet")]
-    public async Task<IActionResult> UpdateWallet(int id, [FromBody] UpdateWallet request)
+    [HttpPatch("wallet/{id}")]
+    public async Task<IActionResult> UpdateWallet([FromRoute] int id, [FromBody] IncreaseWallet request)
     {
-        var result = await _userService.UpdateWalletAsync(id, request.Amount);
+        var result = await _userService.UpdateWalletAsync(id, request);
     
         if (result.IsError)
             return result.ToActionResult();

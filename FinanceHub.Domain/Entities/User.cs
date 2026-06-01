@@ -25,8 +25,13 @@ public class User : BaseEntity
     
     public virtual ICollection<Category> Categories { get; private set; }
     
-    public void UpdateWallet(decimal value)
+    public void IncreaseValue(decimal value)
     {
         Wallet += value;
+    }
+
+    public void DecreaseValue(decimal value)
+    {
+        Wallet -= value;
     }
 }
