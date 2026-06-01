@@ -1,6 +1,6 @@
 using System.Text;
 using FinanceHub.API.Filters;
-using FinanceHub.Application.Services.Users;
+using FinanceHub.Application.Services;
 using FinanceHub.Application.TokenJWT;
 using FinanceHub.Domain.DTOS.Input;
 using FinanceHub.Domain.Interfaces.Repositories;

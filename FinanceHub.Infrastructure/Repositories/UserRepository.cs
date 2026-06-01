@@ -29,4 +29,19 @@ public class UserRepository : IUserRepository
         
         return query;
     }
+
+    public async Task<User?> GetByIdAsync(int id)
+    {
+        var query = await _dbContext.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Id == id);
+        
+        return query;
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
+    }
 }
