@@ -24,4 +24,9 @@ public class User : BaseEntity
     public bool ConfirmEmail { get; private set; }
     
     public virtual ICollection<Category> Categories { get; private set; }
+    
+    public void UpdateWallet(decimal value)
+    {
+        Wallet += value;
+    }
 }

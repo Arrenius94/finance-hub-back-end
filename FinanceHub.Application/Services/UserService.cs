@@ -1,10 +1,11 @@
-
+using ErrorOr;
 using FinanceHub.Domain.DTOS.Input;
 using FinanceHub.Domain.DTOS.Output.User;
 using FinanceHub.Domain.Entities;
+using FinanceHub.Application.Errors;
 using FinanceHub.Domain.Interfaces.Security;
 
-namespace FinanceHub.Application.Services.Users;
+namespace FinanceHub.Application.Services;
 using FinanceHub.Domain.Interfaces.Repositories;
 using FinanceHub.Domain.Interfaces.Services;
 
@@ -21,8 +22,12 @@ public class UserService : IUserService
         _tokenJwt = tokenJwt;
     }
     
-    public async Task<int> CreateUserAsync(CreateUser request)
+    public async Task<ErrorOr<int>> CreateUserAsync(CreateUser request)
     {
+        var existingEmail = await _userRepository.GetByEmailAsync(request.Email);
+        if(existingEmail != null)
+            return AppErrors.User.EmailAlreadyInUse;
+        
         var passwordHash = _passWordHasher.HashPassword(request.Password);
         
         var user = new User(
@@ -37,15 +42,29 @@ public class UserService : IUserService
         return user.Id;
     }
 
-    public async Task<LoginUserResponse?> LoginUserAsync(LoginUser request)
+    public async Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request)
     {
         var user = await _userRepository.GetByEmailAsync(request.Email);
-        if (user == null) return null;
+        if (user == null)
+            return AppErrors.Authentication.InvalidCredentials;
 
         var isPasswordValid = _passWordHasher.VerifyHashedPassword(request.Password, user.Password);
-        if(!isPasswordValid) return null;
+        if(!isPasswordValid)
+            return AppErrors.Authentication.InvalidCredentials;
 
         var token = _tokenJwt.GenerateJwt(request.Email);
         return new LoginUserResponse{Username = user.Name, Token = token};
+    }
+
+    public async Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, decimal amount)
+    {
+        var user = await _userRepository.GetByIdAsync(userId);
+        if (user == null)
+            return AppErrors.User.NotFound;
+        
+        user.UpdateWallet(amount);
+        await _userRepository.UpdateAsync(user);
+        
+        return user.Wallet ?? 0;
     }
 }

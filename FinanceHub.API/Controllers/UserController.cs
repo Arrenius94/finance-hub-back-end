@@ -1,5 +1,5 @@
 using FinanceHub.Domain.DTOS.Input;
-using FinanceHub.Domain.Entities;
+using FinanceHub.API.ExtensionsErrors;
 using FinanceHub.Domain.Interfaces.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -21,8 +21,12 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUser user)
     { 
-        var id = await _userService.CreateUserAsync(user);
-        return CreatedAtAction(nameof(CreateUser), new { id }, user);
+        var result = await _userService.CreateUserAsync(user);
+        
+       if (result.IsError)
+            return result.ToActionResult();
+       
+       return Ok(new { id = result.Value });
     }
 
     [AllowAnonymous]
@@ -30,7 +34,17 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginUser user)
     {
         var response = await _userService.LoginUserAsync(user);
-        if (response == null) return Unauthorized(new {message = "Credenciais inválidas."});
-        return Ok(response);
+        return response.ToActionResult();
     }
-}
+    
+    [Authorize]
+    [HttpPatch("{id}/wallet")]
+    public async Task<IActionResult> UpdateWallet(int id, [FromBody] UpdateWallet request)
+    {
+        var result = await _userService.UpdateWalletAsync(id, request.Amount);
+    
+        if (result.IsError)
+            return result.ToActionResult();
+    
+        return Ok(new { wallet = result.Value });
+    }}

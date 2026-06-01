@@ -1,6 +1,3 @@
-# Build artifacts
-bin/
-obj/
 **/bin/
 **/obj/
 
@@ -11,6 +8,10 @@ obj/
 *.user
 *.rsuser
 *.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
 
 # NuGet
 *.nupkg
@@ -18,6 +19,12 @@ obj/
 
 # Logs
 *.log
+*.pdb
+*.deps.json
+*.runtimeconfig.json
+*.assets.cache
+*.AssemblyInfo.cs
+*.GlobalUsings.g.cs
 
 # OS files
 .DS_Store
