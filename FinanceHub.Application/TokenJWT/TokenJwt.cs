@@ -9,7 +9,7 @@ namespace FinanceHub.Application.TokenJWT;
 
 public sealed class TokenJwt(IConfiguration configuration) : ITokenJwt
 {
-    public string GenerateJwt(string email)
+    public string GenerateJwt(string email, int userId)
     {
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];
@@ -23,7 +23,8 @@ public sealed class TokenJwt(IConfiguration configuration) : ITokenJwt
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Email, email)
+            new Claim(ClaimTypes.Email, email),
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString())
         };
 
         var token = new JwtSecurityToken(

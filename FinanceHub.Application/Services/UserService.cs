@@ -25,7 +25,7 @@ public class UserService : IUserService
     public async Task<ErrorOr<int>> CreateUserAsync(CreateUser request)
     {
         var existingEmail = await _userRepository.GetByEmailAsync(request.Email);
-        if(existingEmail != null)
+        if(existingEmail is not null)
             return AppErrors.User.EmailAlreadyInUse;
         
         var passwordHash = _passWordHasher.HashPassword(request.Password);
@@ -45,21 +45,21 @@ public class UserService : IUserService
     public async Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request)
     {
         var user = await _userRepository.GetByEmailAsync(request.Email);
-        if (user == null)
+        if (user is null)
             return AppErrors.Authentication.InvalidCredentials;
 
         var isPasswordValid = _passWordHasher.VerifyHashedPassword(request.Password, user.Password);
         if(!isPasswordValid)
             return AppErrors.Authentication.InvalidCredentials;
 
-        var token = _tokenJwt.GenerateJwt(request.Email);
+        var token = _tokenJwt.GenerateJwt(request.Email, user.Id);
         return new LoginUserResponse{Username = user.Name, Token = token};
     }
 
     public async Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, IncreaseWallet amount)
     {
         var user = await _userRepository.GetByIdAsync(userId);
-        if (user == null)
+        if (user is null)
             return AppErrors.User.NotFound;
         
         user.IncreaseValue(amount.Amount);

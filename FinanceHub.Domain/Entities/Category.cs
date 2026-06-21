@@ -18,4 +18,10 @@ public class Category : BaseEntity
     public int UserId { get; private set; }
     public virtual User User { get; private set; }
     public virtual ICollection<Bill> Bills { get; private set; }
+
+    public void Update(string name, ECategoryType categoryType)
+    {
+        Name = name;
+        CategoryType = categoryType;
+    }
 }

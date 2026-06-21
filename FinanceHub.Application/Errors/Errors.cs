@@ -18,6 +18,21 @@ public static class AppErrors
             Error.NotFound(code: "User.NotFound", description: "Usuário não encontrado.");
     }
 
+    public static class Category
+    {
+        public static Error NameError =>
+            Error.Conflict(code: "Category.NameInUse", description: "Nome da categoria é obrigatorio.");
+        
+        public static Error TypeCategoryError =>
+            Error.Conflict(code: "Category.TypeError", description: "Tipo da categoria é obrigatorio.");
+        
+        public static Error NotFound =>
+            Error.NotFound(code: "Category.NotFound", description: "Categoria não encontrado.");
+        
+        public static Error Unauthorized =>
+            Error.Unauthorized(code: "Category.Unauthorized", description: "Acesso negado para esta categoria.");
+    }
+    
     public static class Bill
     {
         public static Error BillNotFound =>

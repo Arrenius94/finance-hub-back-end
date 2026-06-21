@@ -32,6 +32,8 @@ builder.Services.AddDbContext<FinanceHubDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPassWordHasher, PassWordHasher>();
 builder.Services.AddScoped<ITokenJwt, TokenJwt>();
 builder.Services.AddControllers(op => op.Filters.Add(typeof(ValidationFilter)));

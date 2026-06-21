@@ -1,8 +1,18 @@
+using System.ComponentModel;
+
 namespace FinanceHub.Domain.Enums;
 
 public enum ECategoryType
 {
-    Saude = 1,
-    Casa = 2,
-    Lazer = 3
+    [Description("Saúde")]
+    Health = 1,
+    
+    [Description("Casa")]
+    Home = 2,
+    
+    [Description("Lazer")]
+    Leisure = 3,
+    
+    [Description("Mensalidades")]
+    Subscriptions = 4
 }
