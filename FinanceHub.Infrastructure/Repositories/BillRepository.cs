@@ -20,7 +20,7 @@ public class BillRepository : IBillRepository
         return bill.Id;
     }
 
-    public void Commit (Bill bill)
+    public void Added (Bill bill)
     { 
         _dbContext.Bills.Add(bill);
     }

@@ -5,5 +5,5 @@ namespace FinanceHub.Domain.Interfaces.Repositories;
 public interface IBillRepository
 {
     Task <int> SaveAsync (Bill bill);
-    void Commit (Bill bill);
+    void Added (Bill bill);
 }

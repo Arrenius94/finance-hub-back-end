@@ -47,7 +47,7 @@ public class BillService : IBillService
             request.CategoryId
         );
 
-         _billRepository.Commit(bill);
+         _billRepository.Added(bill);
 
         if (bill.DatePayment.HasValue)
         {
