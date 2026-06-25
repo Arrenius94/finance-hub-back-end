@@ -32,10 +32,4 @@ public static class AppErrors
         public static Error Unauthorized =>
             Error.Unauthorized(code: "Category.Unauthorized", description: "Acesso negado para esta categoria.");
     }
-    
-    public static class Bill
-    {
-        public static Error BillNotFound =>
-            Error.NotFound(code: "Bill.NotFound", description: "Fatura não encontrada.");
-    }
 }

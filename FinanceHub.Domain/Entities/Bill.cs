@@ -9,19 +9,10 @@ public class Bill : BaseEntity
         Description = description;
         Value = value;
         DateDue = dateDue;
-        DatePayment = datePayment;
+        DatePayment = GetDatePayment(datePayment);
         CategoryId = categoryId;
 
-        if (DatePayment.HasValue)
-        {
-            BillStatus = EBillStatus.Paid;
-        }
-        else
-        {
-            BillStatus = dateDue.Date < DateTime.UtcNow.Date
-                ? EBillStatus.Overdue
-                : EBillStatus.Pending;
-        }
+       BillStatus = DatePayment.HasValue ? EBillStatus.Paid : EBillStatus.Pending;
     }
 
     public string Description { get; private set; }
@@ -32,9 +23,29 @@ public class Bill : BaseEntity
     public int CategoryId { get; private set; }
     public virtual Category Category { get; private set; }
     
+    private static DateTime? GetDatePayment(DateTime? datePayment)
+    {
+        if (!datePayment.HasValue)
+            return null;
+
+        var payment = datePayment.Value;
+
+        if (payment.TimeOfDay == TimeSpan.Zero)
+        {
+            var now = DateTime.Now;
+
+            return payment.Date
+                .AddHours(now.Hour)
+                .AddMinutes(now.Minute)
+                .AddSeconds(now.Second);
+        }
+
+        return payment;
+    }
+    
     public void RegisterPayment (DateTime datePayment)
     {
-        DatePayment = datePayment;
+        DatePayment = DateTime.Now;
         BillStatus = EBillStatus.Paid;
     }
 }

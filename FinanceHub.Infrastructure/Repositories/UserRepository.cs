@@ -44,4 +44,9 @@ public class UserRepository : IUserRepository
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
     }
+
+    public void Update(User user)
+    {
+        _dbContext.Users.Update(user);
+    }
 }

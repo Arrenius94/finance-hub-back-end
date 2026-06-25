@@ -17,7 +17,9 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
         builder.Property(x => x.Value).IsRequired().HasPrecision(18, 2);
         
         builder.Property(x => x.DateDue).IsRequired().HasColumnType("date");
-        builder.Property(x => x.DatePayment).HasColumnType("timestamp with time zone"); 
+        builder.Property(x => x.DatePayment)
+            .HasColumnType("timestamp without time zone")
+            .HasPrecision(0);
         
         builder.Property(x => x.BillStatus).IsRequired();
         
