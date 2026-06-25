@@ -52,7 +52,7 @@ public class BillService : IBillService
         if (bill.DatePayment.HasValue)
         {
             user.DecreaseValue(bill.Value);
-            _userRepository.Update(user);
+            _userRepository.AttachForUpdate(user);
         }
 
         await _unitOfWork.CommitAsync();

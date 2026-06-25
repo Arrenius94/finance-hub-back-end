@@ -45,7 +45,7 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public void Update(User user)
+    public void AttachForUpdate (User user)
     {
         _dbContext.Users.Update(user);
     }
