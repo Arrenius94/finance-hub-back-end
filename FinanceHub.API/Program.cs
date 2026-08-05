@@ -1,4 +1,5 @@
 using System.Text;
+using FinanceHub.API.Auth;
 using FinanceHub.API.Filters;
 using FinanceHub.Application.Services;
 using FinanceHub.Application.TokenJWT;
@@ -22,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 // --- 1. REGISTRO DE SERVIÇOS ---
 
 builder.Services.AddOpenApi();
-
+builder.Services.AddHttpContextAccessor();
 // Pegamos a string de conexão do appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IBillRepository, BillRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPassWordHasher, PassWordHasher>();
 builder.Services.AddScoped<ITokenJwt, TokenJwt>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddControllers(op => op.Filters.Add(typeof(ValidationFilter)));
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidation(x =>

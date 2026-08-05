@@ -47,4 +47,49 @@ public class UserController : ControllerBase
             return result.ToActionResult();
     
         return Ok(new { wallet = result.Value });
-    }}
+    }
+    
+    [Authorize]
+    [HttpPatch("changePassword/{id}")]
+    public async Task<IActionResult> UpdatePassword([FromRoute] int id, [FromBody] ChangePassword request)
+    {
+        var result = await _userService.UpdatePasswordAsync(id, request);
+        if (result.IsError)
+            return result.ToActionResult();
+        
+        return Ok();
+    }
+
+    [Authorize]
+    [HttpGet("balance")]
+    public async Task<IActionResult> GetBalance()
+    {
+        var result = await _userService.GetBalanceAsync();
+        if(result.IsError)
+            return result.ToActionResult();
+        
+        return Ok(result.Value);
+    }
+    
+    [Authorize]
+    [HttpGet("name")]
+    public async Task<IActionResult> GetUserName()
+    {
+        var result = await _userService.GetUserNameAsync();
+        if(result.IsError)
+            return result.ToActionResult();
+        
+        return Ok(result.Value);
+    }
+    
+    [Authorize]
+    [HttpGet("perfil")]
+    public async Task<IActionResult> GetUserPerfil()
+    {
+        var result = await _userService.GetUserPerfilAsync();
+        if(result.IsError)
+            return result.ToActionResult();
+        
+        return Ok(result.Value);
+    }
+}

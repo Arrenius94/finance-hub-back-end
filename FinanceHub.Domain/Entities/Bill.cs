@@ -43,9 +43,9 @@ public class Bill : BaseEntity
         return payment;
     }
     
-    public void RegisterPayment (DateTime datePayment)
+    public void RegisterPayment ()
     {
-        DatePayment = DateTime.Now;
+        DatePayment = DateTime.UtcNow;
         BillStatus = EBillStatus.Paid;
     }
 }

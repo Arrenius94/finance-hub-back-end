@@ -8,5 +8,7 @@ public interface IUserRepository
     Task <User?> GetByEmailAsync (string email);
     Task <User?> GetByIdAsync (int id);
     Task UpdateAsync (User user);
+    Task <decimal?> GetBalanceAsync (int userId);
+    Task <string?> GetByNameAsync (int userId);
     void AttachForUpdate (User user);
 }

@@ -1,9 +1,13 @@
 using ErrorOr;
 using FinanceHub.Domain.DTOS.Input.Bill;
+using FinanceHub.Domain.DTOS.Output.Bill;
 
 namespace FinanceHub.Domain.Interfaces.Services;
 
 public interface IBillService
 {
-    Task<ErrorOr<int>> CreateBillAsync (CreateBill request, int userId);
+    Task<ErrorOr<int>> CreateBillAsync (CreateBill request);
+    Task<ErrorOr<DashboardMetricsView>> GetDashboardMetricsAsync();
+    Task<ErrorOr<List<DashboardChartView>>> GetDashboardChartAsync(DashboardChartFilter filter);
+    Task<ErrorOr<Success>> PayBillListAsync(PayBillsListRequest request);
 }

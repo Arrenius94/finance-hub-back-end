@@ -19,9 +19,9 @@ public class Category : BaseEntity
     public virtual User User { get; private set; }
     public virtual ICollection<Bill> Bills { get; private set; }
 
-    public void Update(string name, ECategoryType categoryType)
+    public void Update(string name, ECategoryType? categoryType)
     {
         Name = name;
-        CategoryType = categoryType;
+        if (categoryType.HasValue) CategoryType = categoryType.Value;
     }
 }

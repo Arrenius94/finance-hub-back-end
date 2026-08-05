@@ -23,19 +23,43 @@ public class BillController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateBill([FromBody] CreateBill bill)
     {
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        
-        if (string.IsNullOrEmpty(userIdClaim))
-        {
-            return Unauthorized("Usuário não identificado.");
-        }
-
-        int userId = int.Parse(userIdClaim);
-        
-        var result = await _billService.CreateBillAsync(bill, userId);
+        var result = await _billService.CreateBillAsync(bill);
         if (result.IsError)
             return result.ToActionResult();
 
         return Ok(new { id = result.Value });
+    }
+
+    [Authorize]
+    [HttpGet("dashboard-metrics")]
+    public async Task<IActionResult> GetDashboardMetrics()
+    {
+        var result = await _billService.GetDashboardMetricsAsync();
+        if (result.IsError) 
+            return result.ToActionResult();
+        
+        return Ok(result.Value);
+    }
+    
+    [Authorize]
+    [HttpGet("dashboard-graphics")]
+    public async Task<IActionResult> GetDashboardGraphics([FromQuery] DashboardChartFilter filter)
+    {
+        var result = await _billService.GetDashboardChartAsync(filter);
+        if (result.IsError)
+            return result.ToActionResult();
+
+        return Ok(result.Value);
+    }
+    
+    [Authorize]
+    [HttpPost("payment-bills")]
+    public async Task<IActionResult> PayBillList([FromBody] PayBillsListRequest request)
+    {
+        var result = await _billService.PayBillListAsync(request);
+        if (result.IsError)
+            return result.ToActionResult();
+
+        return Ok();
     }
 }

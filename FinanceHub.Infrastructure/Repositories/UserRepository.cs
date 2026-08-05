@@ -45,6 +45,26 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public async Task<decimal?> GetBalanceAsync(int userId)
+    {
+        var query = await _dbContext.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.Wallet)
+            .FirstOrDefaultAsync();
+        
+        return query;
+    }
+
+    public async Task<string?> GetByNameAsync(int userId)
+    {
+        var query = await _dbContext.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.Name)
+            .FirstOrDefaultAsync();
+        
+        return query;
+    }
+
     public void AttachForUpdate (User user)
     {
         _dbContext.Users.Update(user);

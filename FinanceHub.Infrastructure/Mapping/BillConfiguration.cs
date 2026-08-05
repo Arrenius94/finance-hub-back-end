@@ -18,14 +18,13 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
         
         builder.Property(x => x.DateDue).IsRequired().HasColumnType("date");
         builder.Property(x => x.DatePayment)
-            .HasColumnType("timestamp without time zone")
-            .HasPrecision(0);
+            .HasColumnType("timestamp with time zone");
         
         builder.Property(x => x.BillStatus).IsRequired();
         
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Bills)
             .HasForeignKey(x => x.CategoryId)
-            .OnDelete(DeleteBehavior.Restrict); 
+            .OnDelete(DeleteBehavior.Cascade); 
     }
 }

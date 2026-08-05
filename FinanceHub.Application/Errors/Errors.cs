@@ -16,6 +16,12 @@ public static class AppErrors
         
         public static Error NotFound =>
             Error.NotFound(code: "User.NotFound", description: "Usuário não encontrado.");
+        
+        public static Error PasswordsDoNotMatch =>
+            Error.Validation(code: "User.PasswordsDoNotMatch", description: "As senhas não coincidem.");
+        
+        public static Error InsufficientBalance =>
+            Error.Validation(code: "User.InsufficientBalance", description: "Saldo insuficiente.");
     }
 
     public static class Category
@@ -31,5 +37,27 @@ public static class AppErrors
         
         public static Error Unauthorized =>
             Error.Unauthorized(code: "Category.Unauthorized", description: "Acesso negado para esta categoria.");
+
+        public static Error HasPendingBills(string categoryName) =>
+            Error.Validation(
+                code: "Category.HasPendingBills",
+                description: $"A categoria '{categoryName}' possui contas pendentes.",
+                metadata: new Dictionary<string, object>
+                {
+                    {"categoryName", categoryName}
+                }
+            );
+    }
+
+    public static class Bill
+    {
+        public static Error NotFound =>
+            Error.NotFound(code: "Bill.NotFound", description: "Contas não encontrada.");
+        
+        public static Error NoBillsToPay =>
+            Error.Validation(code: "Bill.NoBillsToPay", description: "Nenhuma conta selecionada para pagamento.");
+        
+        public static Error DifferentList =>
+            Error.NotFound(code: "Bill.DifferentList", description: "Contas não tem a mesma lista.");
     }
 }

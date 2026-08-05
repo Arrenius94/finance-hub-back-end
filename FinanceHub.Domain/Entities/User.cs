@@ -34,4 +34,9 @@ public class User : BaseEntity
     {
         Wallet -= value;
     }
+    
+    public void ChangePassword(string newPassword)
+    {
+        Password = newPassword;
+    }
 }
