@@ -13,4 +13,5 @@ public interface IUserService
     Task<ErrorOr<BalanceUserView>> GetBalanceAsync();
     Task<ErrorOr<UserNameView>> GetUserNameAsync();
     Task<ErrorOr<UserPerfilView>> GetUserPerfilAsync();
+    Task<ErrorOr<Success>> DeleteUserAsync();
 }

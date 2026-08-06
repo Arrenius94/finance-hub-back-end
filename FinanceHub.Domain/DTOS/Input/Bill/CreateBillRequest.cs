@@ -1,6 +1,6 @@
 namespace FinanceHub.Domain.DTOS.Input.Bill;
 
-public class CreateBill
+public class CreateBillRequest
 {
     public string Description { get; set; }
     public decimal Value { get; set; }

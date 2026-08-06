@@ -92,4 +92,15 @@ public class UserController : ControllerBase
         
         return Ok(result.Value);
     }
+    
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUser()
+    {
+        var result = await _userService.DeleteUserAsync();
+        if(result.IsError)
+            return result.ToActionResult();
+        
+        return Ok();
+    }
 }

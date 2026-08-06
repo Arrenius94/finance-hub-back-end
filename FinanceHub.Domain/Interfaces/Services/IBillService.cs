@@ -6,8 +6,9 @@ namespace FinanceHub.Domain.Interfaces.Services;
 
 public interface IBillService
 {
-    Task<ErrorOr<int>> CreateBillAsync (CreateBill request);
+    Task<ErrorOr<int>> CreateBillAsync (CreateBillRequest request);
     Task<ErrorOr<DashboardMetricsView>> GetDashboardMetricsAsync();
     Task<ErrorOr<List<DashboardChartView>>> GetDashboardChartAsync(DashboardChartFilter filter);
     Task<ErrorOr<Success>> PayBillListAsync(PayBillsListRequest request);
+    Task<ErrorOr<Success>> DeleteBillAsync(DeleteBillsRequest request);
 }

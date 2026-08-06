@@ -21,9 +21,9 @@ public class BillController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> CreateBill([FromBody] CreateBill bill)
+    public async Task<IActionResult> CreateBill([FromBody] CreateBillRequest billRequest)
     {
-        var result = await _billService.CreateBillAsync(bill);
+        var result = await _billService.CreateBillAsync(billRequest);
         if (result.IsError)
             return result.ToActionResult();
 
@@ -57,6 +57,17 @@ public class BillController : ControllerBase
     public async Task<IActionResult> PayBillList([FromBody] PayBillsListRequest request)
     {
         var result = await _billService.PayBillListAsync(request);
+        if (result.IsError)
+            return result.ToActionResult();
+
+        return Ok();
+    }
+    
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteBillList([FromBody] DeleteBillsRequest request)
+    {
+        var result = await _billService.DeleteBillAsync(request);
         if (result.IsError)
             return result.ToActionResult();
 

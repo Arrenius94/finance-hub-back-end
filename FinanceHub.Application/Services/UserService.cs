@@ -138,4 +138,18 @@ public class UserService : IUserService
 
         return userPerfil;
     }
+    
+    public async Task<ErrorOr<Success>> DeleteUserAsync()
+    {
+        var userId = _currentUser.UserId;
+        if (userId <= 0)
+            return AppErrors.User.NotFound;
+        
+        var user = await _userRepository.GetByIdAsync(userId);
+        if (user is null)
+            return AppErrors.User.NotFound;
+
+        await _userRepository.DeleteAsync(user);
+        return Result.Success;
+    }
 }

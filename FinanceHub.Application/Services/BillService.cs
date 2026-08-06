@@ -32,7 +32,7 @@ public class BillService : IBillService
         _currentUser = currentUser;
     }
     
-    public async Task<ErrorOr<int>> CreateBillAsync(CreateBill request)
+    public async Task<ErrorOr<int>> CreateBillAsync(CreateBillRequest request)
     {
         var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
         if (category is null)
@@ -124,7 +124,7 @@ public class BillService : IBillService
         if (userId < 0)
             return AppErrors.User.NotFound;
         
-        if (request.BillIds == null || !request.BillIds.Any())
+        if (request.BillIds.Count == 0)
             return AppErrors.Bill.NoBillsToPay;
         
         var bills = await _billRepository.GetByIdsPayment(request.BillIds, userId);
@@ -144,6 +144,27 @@ public class BillService : IBillService
         {
             bill.RegisterPayment();
         }
+        
+        await _unitOfWork.CommitAsync();
+        
+        return Result.Success;
+    }
+
+    public async Task<ErrorOr<Success>> DeleteBillAsync(DeleteBillsRequest request)
+    {
+        var userId = _currentUser.UserId;
+        if(userId < 0)
+            return AppErrors.User.NotFound;
+        
+        if(request.billIds.Length == 0)
+            return AppErrors.Bill.NoBillsToDelete;
+        
+        var bills = await _billRepository.GetByIdsDeleteAsync(request.billIds, userId);
+        
+        if (bills.Count != request.billIds.Length)
+            return AppErrors.Bill.DifferentList;
+        
+        _billRepository.RemoveRange(bills);
         
         await _unitOfWork.CommitAsync();
         

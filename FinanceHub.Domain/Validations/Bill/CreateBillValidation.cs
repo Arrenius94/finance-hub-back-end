@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FinanceHub.Domain.Validations.Bill;
 
-public class CreateBillValidation : AbstractValidator<CreateBill>
+public class CreateBillValidation : AbstractValidator<CreateBillRequest>
 {
     public CreateBillValidation()
     {

@@ -11,4 +11,5 @@ public interface IUserRepository
     Task <decimal?> GetBalanceAsync (int userId);
     Task <string?> GetByNameAsync (int userId);
     void AttachForUpdate (User user);
+    Task DeleteAsync (User user);
 }

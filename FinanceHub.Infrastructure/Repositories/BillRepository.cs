@@ -93,4 +93,17 @@ public class BillRepository : IBillRepository
         
         return result;
     }
+
+    public async Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId)
+    {
+        var result = await _dbContext.Bills
+            .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId)
+            .ToListAsync();
+        return result;
+    }
+
+    public void RemoveRange(IEnumerable<Bill> bills)
+    {
+        _dbContext.Bills.RemoveRange(bills);
+    }
 }

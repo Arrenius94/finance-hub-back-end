@@ -59,5 +59,8 @@ public static class AppErrors
         
         public static Error DifferentList =>
             Error.NotFound(code: "Bill.DifferentList", description: "Contas não tem a mesma lista.");
+        
+        public static Error NoBillsToDelete =>
+            Error.Validation(code: "Bill.NoBillsToDelete", description: "Nenhuma conta selecionada para exclusão.");
     }
 }

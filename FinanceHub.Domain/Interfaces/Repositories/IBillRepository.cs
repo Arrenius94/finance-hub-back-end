@@ -10,4 +10,6 @@ public interface IBillRepository
     Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId);
     Task<List<ChartQueryResult>> GetGraphicDataAsync(DashboardChartFilter filter);
     Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId);
+    Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId);
+    void RemoveRange(IEnumerable<Bill> bills);
 }
