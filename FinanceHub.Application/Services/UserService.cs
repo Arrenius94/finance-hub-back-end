@@ -44,21 +44,6 @@ public class UserService : IUserService
         await _userRepository.SaveAsync(user);
         return user.Id;
     }
-
-    public async Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request)
-    {
-        var user = await _userRepository.GetByEmailAsync(request.Email);
-        if (user is null)
-            return AppErrors.Authentication.InvalidCredentials;
-
-        var isPasswordValid = _passWordHasher.VerifyHashedPassword(request.Password, user.Password);
-        if(!isPasswordValid)
-            return AppErrors.Authentication.InvalidCredentials;
-
-        var token = _tokenJwt.GenerateJwt(request.Email, user.Id);
-        return new LoginUserResponse{Username = user.Name, Token = token};
-    }
-
     public async Task<ErrorOr<decimal>> UpdateWalletAsync(int userId, IncreaseWallet amount)
     {
         var user = await _userRepository.GetByIdAsync(userId);
@@ -71,7 +56,7 @@ public class UserService : IUserService
         return user.Wallet ?? 0;
     }
 
-    public async Task<ErrorOr<string>> UpdatePasswordAsync(int userId, ChangePassword changePassword)
+    public async Task<ErrorOr<string>> UpdatePasswordAsync(int userId, ChangePassword request)
     {
         var user = await _userRepository.GetByIdAsync(userId);
         if (user is null)
@@ -80,7 +65,7 @@ public class UserService : IUserService
         /*if (changePassword.NewPassword != changePassword.NewPasswordConfirmation)
             return AppErrors.User.PasswordsDoNotMatch;*/
         
-        var passwordHash = _passWordHasher.HashPassword(changePassword.NewPassword);
+        var passwordHash = _passWordHasher.HashPassword(request.NewPassword);
         user.ChangePassword(passwordHash);
         await _userRepository.UpdateAsync(user);
             

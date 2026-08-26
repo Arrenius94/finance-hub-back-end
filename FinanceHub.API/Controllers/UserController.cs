@@ -28,14 +28,6 @@ public class UserController : ControllerBase
        
        return Ok(new { id = result.Value });
     }
-
-    [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginUser user)
-    {
-        var response = await _userService.LoginUserAsync(user);
-        return response.ToActionResult();
-    }
     
     [Authorize]
     [HttpPatch("wallet/{id}")]

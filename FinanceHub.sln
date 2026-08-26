@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceHub.Domain", "Financ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceHub.Infrastructure", "FinanceHub.Infrastructure\FinanceHub.Infrastructure.csproj", "{C57B0A33-456C-4615-B5F3-F72957EFE967}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceHub.Worker", "FinanceHub.Worker\FinanceHub.Worker.csproj", "{6025588C-DDBF-4B01-9316-9987356B7708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C57B0A33-456C-4615-B5F3-F72957EFE967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C57B0A33-456C-4615-B5F3-F72957EFE967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C57B0A33-456C-4615-B5F3-F72957EFE967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6025588C-DDBF-4B01-9316-9987356B7708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6025588C-DDBF-4B01-9316-9987356B7708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6025588C-DDBF-4B01-9316-9987356B7708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6025588C-DDBF-4B01-9316-9987356B7708}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

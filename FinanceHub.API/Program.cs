@@ -11,12 +11,14 @@ using FinanceHub.Domain.Validations.User;
 using FinanceHub.Infrastructure.Data;
 using FinanceHub.Infrastructure.Repositories;
 using FinanceHub.Infrastructure.Security;
+using FinanceHub.Infrastructure.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<IResend, ResendClient>();
+builder.Services.Configure<ResendClientOptions>(options =>
+{
+    options.ApiToken = builder.Configuration["Resend:ApiKey"]!;
+});
 // Pegamos a string de conexão do appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
@@ -31,6 +39,7 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 builder.Services.AddDbContext<FinanceHubDbContext>(options =>
     options.UseNpgsql(connectionString, b => b.MigrationsAssembly("FinanceHub.Infrastructure")));
 
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -41,6 +50,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPassWordHasher, PassWordHasher>();
 builder.Services.AddScoped<ITokenJwt, TokenJwt>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddHttpClient<IResend, ResendClient>();
+builder.Services.AddScoped<IEmailService, ResendEmailService>();
 builder.Services.AddControllers(op => op.Filters.Add(typeof(ValidationFilter)));
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidation(x =>

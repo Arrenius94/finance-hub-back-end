@@ -2,5 +2,5 @@ namespace FinanceHub.Domain.Interfaces.Repositories;
 
 public interface IUnitOfWork
 {
-    Task CommitAsync();
+    Task CommitAsync(CancellationToken ct);
 }

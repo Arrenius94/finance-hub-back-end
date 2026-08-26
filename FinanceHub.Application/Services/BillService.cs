@@ -32,7 +32,7 @@ public class BillService : IBillService
         _currentUser = currentUser;
     }
     
-    public async Task<ErrorOr<int>> CreateBillAsync(CreateBillRequest request)
+    public async Task<ErrorOr<int>> CreateBillAsync(CreateBillRequest request, CancellationToken ct)
     {
         var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
         if (category is null)
@@ -62,16 +62,18 @@ public class BillService : IBillService
             _userRepository.AttachForUpdate(user);
         }
 
-        await _unitOfWork.CommitAsync();
+        await _unitOfWork.CommitAsync(ct);
         
         return bill.Id;
     }
 
-    public async Task<ErrorOr<DashboardMetricsView>> GetDashboardMetricsAsync()
+    public async Task<ErrorOr<DashboardMetricsView>> GetDashboardMetricsAsync(CancellationToken ct)
     {
         var userId = _currentUser.UserId;
+        if (userId < 0)
+            return AppErrors.User.NotFound;
         
-        var metrics = await _billRepository.GetThreeMetricsAsync(userId);
+        var metrics = await _billRepository.GetThreeMetricsAsync(userId, ct);
 
         var dtoThreeMetrics = new DashboardMetricsView();
 
@@ -99,7 +101,7 @@ public class BillService : IBillService
         return dtoThreeMetrics;
     }
 
-    public async Task<ErrorOr<List<DashboardChartView>>> GetDashboardChartAsync(DashboardChartFilter filter)
+    public async Task<ErrorOr<List<DashboardGraphicView>>> GetDashboardChartAsync(DashboarGraphicFilter filter, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         if (userId < 0)
@@ -107,18 +109,12 @@ public class BillService : IBillService
         
         filter.UserId = userId;
         
-        var result = await _billRepository.GetGraphicDataAsync(filter);
+        var result = await _billRepository.GetGraphicDataAsync(filter, ct);
         
-        var viewResult = result.Select(item => new DashboardChartView
-        {
-            CategoryName = item.CategoryName,
-            TotalValue = item.Total
-        }).ToList();
-        
-        return viewResult;
+        return result;
     }
 
-    public async Task<ErrorOr<Success>> PayBillListAsync(PayBillsListRequest request)
+    public async Task<ErrorOr<Success>> PayBillListAsync(PayBillsListRequest request, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         if (userId < 0)
@@ -127,9 +123,9 @@ public class BillService : IBillService
         if (request.BillIds.Count == 0)
             return AppErrors.Bill.NoBillsToPay;
         
-        var bills = await _billRepository.GetByIdsPayment(request.BillIds, userId);
+        var bills = await _billRepository.GetByIdsPayment(request.BillIds, userId, ct);
         
-        if(bills.Count != request.BillIds.Count)
+        if(bills.Count < request.BillIds.Count)
             return AppErrors.Bill.DifferentList;
         
         var user = bills.First().Category.User;
@@ -145,12 +141,12 @@ public class BillService : IBillService
             bill.RegisterPayment();
         }
         
-        await _unitOfWork.CommitAsync();
+        await _unitOfWork.CommitAsync(ct);
         
         return Result.Success;
     }
 
-    public async Task<ErrorOr<Success>> DeleteBillAsync(DeleteBillsRequest request)
+    public async Task<ErrorOr<Success>> DeleteBillAsync(DeleteBillsRequest request, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         if(userId < 0)
@@ -159,14 +155,14 @@ public class BillService : IBillService
         if(request.billIds.Length == 0)
             return AppErrors.Bill.NoBillsToDelete;
         
-        var bills = await _billRepository.GetByIdsDeleteAsync(request.billIds, userId);
+        var bills = await _billRepository.GetByIdsDeleteAsync(request.billIds, userId, ct);
         
         if (bills.Count != request.billIds.Length)
             return AppErrors.Bill.DifferentList;
         
         _billRepository.RemoveRange(bills);
         
-        await _unitOfWork.CommitAsync();
+        await _unitOfWork.CommitAsync(ct);
         
         return Result.Success;
     }

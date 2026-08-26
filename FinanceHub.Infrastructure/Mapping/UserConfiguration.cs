@@ -25,6 +25,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         
         builder.Property(x => x.ConfirmEmail).HasDefaultValue(false);
         
+        builder.Property(x => x.VerifcationCode)
+            .HasMaxLength(4)
+            .IsRequired(false);
+        
+        builder.Property(x => x.CodeExpiration)
+            .IsRequired(false);
+        
         builder.HasMany(x => x.Categories)
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId)

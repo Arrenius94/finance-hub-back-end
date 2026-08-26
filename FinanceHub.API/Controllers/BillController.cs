@@ -21,9 +21,9 @@ public class BillController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> CreateBill([FromBody] CreateBillRequest billRequest)
+    public async Task<IActionResult> CreateBill([FromBody] CreateBillRequest billRequest,  CancellationToken ct)
     {
-        var result = await _billService.CreateBillAsync(billRequest);
+        var result = await _billService.CreateBillAsync(billRequest, ct);
         if (result.IsError)
             return result.ToActionResult();
 
@@ -32,9 +32,9 @@ public class BillController : ControllerBase
 
     [Authorize]
     [HttpGet("dashboard-metrics")]
-    public async Task<IActionResult> GetDashboardMetrics()
+    public async Task<IActionResult> GetDashboardMetrics(CancellationToken ct)
     {
-        var result = await _billService.GetDashboardMetricsAsync();
+        var result = await _billService.GetDashboardMetricsAsync(ct);
         if (result.IsError) 
             return result.ToActionResult();
         
@@ -43,9 +43,9 @@ public class BillController : ControllerBase
     
     [Authorize]
     [HttpGet("dashboard-graphics")]
-    public async Task<IActionResult> GetDashboardGraphics([FromQuery] DashboardChartFilter filter)
+    public async Task<IActionResult> GetDashboardGraphics([FromQuery] DashboarGraphicFilter filter, CancellationToken ct)
     {
-        var result = await _billService.GetDashboardChartAsync(filter);
+        var result = await _billService.GetDashboardChartAsync(filter, ct);
         if (result.IsError)
             return result.ToActionResult();
 
@@ -54,9 +54,9 @@ public class BillController : ControllerBase
     
     [Authorize]
     [HttpPost("payment-bills")]
-    public async Task<IActionResult> PayBillList([FromBody] PayBillsListRequest request)
+    public async Task<IActionResult> PayBillList([FromBody] PayBillsListRequest request, CancellationToken ct)
     {
-        var result = await _billService.PayBillListAsync(request);
+        var result = await _billService.PayBillListAsync(request, ct);
         if (result.IsError)
             return result.ToActionResult();
 
@@ -65,9 +65,9 @@ public class BillController : ControllerBase
     
     [Authorize]
     [HttpDelete]
-    public async Task<IActionResult> DeleteBillList([FromBody] DeleteBillsRequest request)
+    public async Task<IActionResult> DeleteBillList([FromBody] DeleteBillsRequest request, CancellationToken ct)
     {
-        var result = await _billService.DeleteBillAsync(request);
+        var result = await _billService.DeleteBillAsync(request, ct);
         if (result.IsError)
             return result.ToActionResult();
 

@@ -44,7 +44,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<List<CategoryView>> GetAllAsync(CategoryFilter filter)
     {
-        var day = DateTime.UtcNow.Date;
+        var day = DateTime.UtcNow.AddHours(-3).Date;
 
         var query = _dbContext.Categories.AsNoTracking();
 
@@ -114,20 +114,5 @@ public class CategoryRepository : ICategoryRepository
     {
        _dbContext.Categories.Remove(category);
        await _dbContext.SaveChangesAsync();
-    }
-    
-    private static Expression<Func<Bill, bool>> GetBillFilter(
-        CategoryFilter filter,
-        DateTime day)
-    {
-        return b =>
-            (filter.BillStatus == null ||
-             (filter.BillStatus == EBillStatus.Paid && b.DatePayment != null) ||
-             (filter.BillStatus == EBillStatus.Pending && b.DatePayment == null && b.DateDue >= day) ||
-             (filter.BillStatus == EBillStatus.Overdue && b.DatePayment == null && b.DateDue < day))
-            &&
-            (filter.StartDate == null || b.DateDue >= filter.StartDate)
-            &&
-            (filter.EndDate == null || b.DateDue <= filter.EndDate);
     }
 };

@@ -14,6 +14,7 @@ public class FinanceHubDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Bill> Bills { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<NotificationLog> NotificationLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

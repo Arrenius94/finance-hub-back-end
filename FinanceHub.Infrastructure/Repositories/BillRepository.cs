@@ -1,4 +1,5 @@
 using FinanceHub.Domain.DTOS.Input.Bill;
+using FinanceHub.Domain.DTOS.Output.Bill;
 using FinanceHub.Domain.Entities;
 using FinanceHub.Domain.Enums;
 using FinanceHub.Domain.Interfaces.Repositories;
@@ -27,31 +28,28 @@ public class BillRepository : IBillRepository
     { 
         _dbContext.Bills.Add(bill);
     }
-
-    public async Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId)
+    public async Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct)
     {
         var today = DateTime.UtcNow.Date;
 
         var query = _dbContext.Bills
+            .AsNoTracking()
             .Where(x => x.Category.UserId == userId)
             .GroupBy(b => b.DatePayment != null
                 ? EBillStatus.Paid
                 : b.DateDue < today
                     ? EBillStatus.Overdue
                     : EBillStatus.Pending)
-            .Select(g => new BillQueryResult
-            {
-                Status = g.Key,
-                Count = g.Count(),
-                Total = g.Sum(x => x.Value)
-            });
-
-        var result = await query.ToListAsync();
+            .Select(g => new BillQueryResult(
+                g.Key,
+                g.Count(),
+                g.Sum(x => x.Value)
+            ));
+        var result = await query.ToListAsync(ct);
 
         return result;
     }
-
-    public async Task<List<ChartQueryResult>> GetGraphicDataAsync(DashboardChartFilter filter)
+    public async Task<List<DashboardGraphicView>> GetGraphicDataAsync(DashboarGraphicFilter filter, CancellationToken ct)
     {
         var query = _dbContext.Bills.AsNoTracking()
             .Where(b => b.Category.UserId == filter.UserId);
@@ -73,37 +71,55 @@ public class BillRepository : IBillRepository
         
         var result = await query 
             .GroupBy(b => b.Category.Name)
-            .Select(g => new ChartQueryResult
+            .Select(g => new DashboardGraphicView
             {
                 CategoryName = g.Key,
-                Total = g.Sum(b => b.Value)
+                TotalValue = g.Sum(b => b.Value)
             })
-            .ToListAsync();
+            .ToListAsync(ct);
         
         return result;
     }
 
-    public async Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId)
+    public async Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken  ct)
     {
         var result = await _dbContext.Bills
             .Include(b => b.Category)
-            .ThenInclude(c => c.User)    
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId && b.BillStatus != EBillStatus.Paid)
-            .ToListAsync();
+            .ToListAsync(ct);
         
         return result;
     }
 
-    public async Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId)
+    public async Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct)
     {
         var result = await _dbContext.Bills
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId)
-            .ToListAsync();
+            .ToListAsync(ct);
         return result;
     }
 
     public void RemoveRange(IEnumerable<Bill> bills)
     {
         _dbContext.Bills.RemoveRange(bills);
+    }
+
+    public async Task<List<Bill>> GetPendingBillsForNotificationAsync(DateTime today, CancellationToken ct)
+    {
+        var dateToday = today.Date;
+        var inTreeDays = today.Date.AddDays(3);
+        var inSevenDays = today.Date.AddDays(7);
+
+        var query = await _dbContext.Bills
+            .Include(b => b.Category)
+            .ThenInclude(c => c.User)
+            .Where(b => b.BillStatus == EBillStatus.Pending && (
+                b.DateDue.Date == dateToday ||
+                b.DateDue.Date == inTreeDays ||
+                b.DateDue.Date == inSevenDays
+            ))
+            .ToListAsync(ct);
+;        
+        return query;
     }
 }

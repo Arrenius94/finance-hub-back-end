@@ -22,6 +22,8 @@ public class User : BaseEntity
     public DateTime DateBirth { get; private set; }
     public decimal? Wallet { get; private set; }
     public bool ConfirmEmail { get; private set; }
+    public string? VerifcationCode { get;  set; }
+    public DateTime? CodeExpiration { get; set; }
     
     public virtual ICollection<Category> Categories { get; private set; }
     
@@ -38,5 +40,12 @@ public class User : BaseEntity
     public void ChangePassword(string newPassword)
     {
         Password = newPassword;
+    }
+
+    public void ConfirmUserEmail()
+    {
+        ConfirmEmail = true;
+        VerifcationCode  = null;
+        CodeExpiration = null;
     }
 }
