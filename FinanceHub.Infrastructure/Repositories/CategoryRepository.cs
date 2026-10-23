@@ -1,11 +1,11 @@
-using System.Linq.Expressions;
+using FinanceHub.Application.Common;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Category;
 using FinanceHub.Domain.Entities;
 using FinanceHub.Domain.Enums;
 using FinanceHub.Domain.Interfaces.Repositories;
 using FinanceHub.Infrastructure.Data;
-using FinanceHub.Infrastructure.Security;
+using FinanceHub.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceHub.Infrastructure.Repositories;
@@ -14,7 +14,7 @@ public class CategoryRepository : ICategoryRepository
 {
     private readonly FinanceHubDbContext _dbContext;
     
-    public CategoryRepository(FinanceHubDbContext dbContext,  ICurrentUser currentUser)
+    public CategoryRepository(FinanceHubDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -42,13 +42,13 @@ public class CategoryRepository : ICategoryRepository
          await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<CategoryView>> GetAllAsync(CategoryFilter filter)
+    public async Task<PagedResult<CategoryView>> GetAllAsync(CategoryFilter filter)
     {
         var day = DateTime.UtcNow.AddHours(-3).Date;
 
         var query = _dbContext.Categories.AsNoTracking();
 
-        if (filter.RestrictUserId is not null)
+        if(filter.RestrictUserId is not null)
         {
             query = query.Where(c => c.UserId == filter.RestrictUserId);
         }
@@ -64,7 +64,11 @@ public class CategoryRepository : ICategoryRepository
                 (filter.EndDate == null || b.DateDue <= filter.EndDate)
             ) || !c.Bills.Any());
 
-        var result = await query
+        var totalCount = await query.CountAsync();
+
+        var projectedQuery = query
+            .OrderBy(c => c.Name)
+            .ThenBy(c => c.Id)
             .Select(c => new CategoryView
             {
                 Id = c.Id,
@@ -94,10 +98,9 @@ public class CategoryRepository : ICategoryRepository
                                 : EBillStatus.Pending
                     })
                     .ToList()
-            })
-            .ToListAsync();
+            });
 
-        return result;
+        return await projectedQuery.ToPagedListAsync(filter.PageIndex, filter.PageSize, totalCount);
     }
 
     public async Task<bool> HasPendingBillsAsync(int categoryId)

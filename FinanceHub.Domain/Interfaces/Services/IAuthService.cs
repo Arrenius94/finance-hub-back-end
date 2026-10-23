@@ -6,6 +6,6 @@ namespace FinanceHub.Domain.Interfaces.Services;
 
 public interface IAuthService
 {
-    Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request);
+    Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request, CancellationToken ct);
     Task<ErrorOr<LoginUserResponse>> VerifyFirstLoginAsync(VerifyCodeRequest request);
 }

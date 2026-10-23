@@ -64,7 +64,7 @@ public class BillRepository : IBillRepository
             query = query.Where(b => b.DateDue.Year == filter.Year);
         }
         
-        if(filter.CategoryTypes != null && filter.CategoryTypes.Any())
+        if(filter.CategoryTypes is { Count: > 0 })
         {
             query = query.Where(b => filter.CategoryTypes.Contains(b.Category.CategoryType));   
         }
@@ -85,23 +85,27 @@ public class BillRepository : IBillRepository
     {
         var result = await _dbContext.Bills
             .Include(b => b.Category)
+            .ThenInclude(c => c.User)
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId && b.BillStatus != EBillStatus.Paid)
             .ToListAsync(ct);
         
         return result;
     }
 
-    public async Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct)
+    public async Task<List<int>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct)
     {
         var result = await _dbContext.Bills
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId)
+            .Select(b  => b.Id)
             .ToListAsync(ct);
         return result;
     }
 
-    public void RemoveRange(IEnumerable<Bill> bills)
+    public async Task RemoveRangeAsync(IEnumerable<int> billsIds, CancellationToken ct)
     {
-        _dbContext.Bills.RemoveRange(bills);
+        await _dbContext.Bills
+            .Where(b => billsIds.Contains(b.Id))
+            .ExecuteDeleteAsync(ct);
     }
 
     public async Task<List<Bill>> GetPendingBillsForNotificationAsync(DateTime today, CancellationToken ct)

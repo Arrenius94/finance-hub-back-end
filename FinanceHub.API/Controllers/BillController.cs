@@ -45,7 +45,7 @@ public class BillController : ControllerBase
     [HttpGet("dashboard-graphics")]
     public async Task<IActionResult> GetDashboardGraphics([FromQuery] DashboarGraphicFilter filter, CancellationToken ct)
     {
-        var result = await _billService.GetDashboardChartAsync(filter, ct);
+        var result = await _billService.GetDashboardGraphicAsync(filter, ct);
         if (result.IsError)
             return result.ToActionResult();
 

@@ -11,8 +11,6 @@ public class User : BaseEntity
         DateBirth = dateBirth;
         Wallet = wallet;
         ConfirmEmail = false;
-        
-        Categories = new List<Category>();
     }
     
     public string Name { get; private set; }
@@ -25,7 +23,8 @@ public class User : BaseEntity
     public string? VerifcationCode { get;  set; }
     public DateTime? CodeExpiration { get; set; }
     
-    public virtual ICollection<Category> Categories { get; private set; }
+    public ICollection<Category> Categories { get; private set; } = new List<Category>();
+    public ICollection<AccountReceivable>  AccountReceivables { get; private set; } = new List<AccountReceivable>();
     
     public void IncreaseValue(decimal value)
     {
@@ -37,7 +36,7 @@ public class User : BaseEntity
         Wallet -= value;
     }
     
-    public void ChangePassword(string newPassword)
+    public void ChangePassword(string newPassword)  
     {
         Password = newPassword;
     }
@@ -47,5 +46,10 @@ public class User : BaseEntity
         ConfirmEmail = true;
         VerifcationCode  = null;
         CodeExpiration = null;
+    }
+
+    public void NewPassWord(string newPassword)
+    {
+        Password = newPassword;
     }
 }

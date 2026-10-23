@@ -95,4 +95,14 @@ public class UserController : ControllerBase
         
         return Ok();
     }
+    [AllowAnonymous]
+    [HttpPost("new-password")]
+    public async Task<IActionResult> NewPassword([FromBody] NewPassword request, CancellationToken ct)
+    {
+        var result = await _userService.NewPasswordAsync(request, ct);
+        if (result.IsError)
+            return result.ToActionResult();
+
+        return Ok();
+    }
 }

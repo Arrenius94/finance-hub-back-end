@@ -24,7 +24,7 @@ public class AuthService : IAuthService
         _emailService = emailService;
     }
         
-    public async Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request)
+    public async Task<ErrorOr<LoginUserResponse>> LoginUserAsync(LoginUser request, CancellationToken ct)
     {
         var user = await _userRepository.GetByEmailAsync(request.Email);
         if (user is null)
@@ -43,15 +43,7 @@ public class AuthService : IAuthService
             
             await _userRepository.UpdateAsync(user);
             
-            var html = $@"
-                <div style='font-family: Arial, sans-serif; padding: 20px;'>
-                    <h2>Olá, {user.Name}!</h2>
-                    <p>Seu código de acesso ao FinanceHub é:</p>
-                    <h1 style='color: #4F46E5; letter-spacing: 4px;'>{code}</h1>
-                    <p>Este código expira em 10 minutos.</p>
-                </div>";
-            
-            await _emailService.SendEmailAsync(user.Email, "Código de Confirmação - FinanceHub",  html);
+            await _emailService.SendVerificationCodeEmailAsync(user.Email, user.Name, code, ct);
             
             return AppErrors.Authentication.RequiresEmailVerification;
         }

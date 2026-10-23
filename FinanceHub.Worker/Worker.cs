@@ -35,7 +35,7 @@ public class Worker : BackgroundService
        }
     }
 
-    private async Task ProcessPendingNotificationsAsync(CancellationToken cancellationToken)
+    private async Task ProcessPendingNotificationsAsync(CancellationToken ct)
     {
         using var scope = _serviceProvider.CreateScope();
         
@@ -44,7 +44,7 @@ public class Worker : BackgroundService
         var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
 
         var today = DateTime.UtcNow.Date;
-        var pendingBills = await billRepository.GetPendingBillsForNotificationAsync(today, cancellationToken);
+        var pendingBills = await billRepository.GetPendingBillsForNotificationAsync(today, ct);
         
         if (pendingBills.Count <= 0) return;
         
@@ -70,7 +70,7 @@ public class Worker : BackgroundService
             var notificationType = group.Key.Type;
             var groupBillIds = group.Select(x => x.Bill.Id).ToList();
             
-            var alreadyNotifiedIds = await notificationLogRepository.GetNotificationBillsIdsTodayAsync(groupBillIds, notificationType, today, cancellationToken);
+            var alreadyNotifiedIds = await notificationLogRepository.GetNotificationBillsIdsTodayAsync(groupBillIds, notificationType, today, ct);
             
             // trouxe ids das listas que foram notificadas, agr eu filtro essa lista com os ids q nao foram notificados
             var billsToNotify = group
@@ -119,12 +119,12 @@ public class Worker : BackgroundService
                         <p>Acesse o sistema para conferir ou atualizar o status de pagamento.</p>
                         """;
 
-            await emailService.SendEmailAsync(user.Email, subject, body);
+            await emailService.SendEmailAsync(user.Email, subject, body, ct);
 
             // add log nas contas q foram notificads
             foreach (var bill in billsToNotify)
             {
-                await notificationLogRepository.AddLogAsync(bill.Id, notificationType, cancellationToken);
+                await notificationLogRepository.AddLogAsync(bill.Id, notificationType, ct);
             }
             
             var billNames = string.Join(", ", billsToNotify.Select(b => b.Description));

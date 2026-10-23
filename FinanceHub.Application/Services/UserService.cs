@@ -1,4 +1,5 @@
 using ErrorOr;
+using FinanceHub.Application.Common;
 using FinanceHub.Domain.DTOS.Input;
 using FinanceHub.Domain.DTOS.Output.User;
 using FinanceHub.Domain.Entities;
@@ -14,14 +15,14 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPassWordHasher _passWordHasher;
-    private readonly ITokenJwt _tokenJwt;
     private readonly ICurrentUser _currentUser;
-    
-    public UserService(IUserRepository userRepository, IPassWordHasher passWordHasher, ITokenJwt tokenJwt, ICurrentUser currentUser)
+    private  readonly IEmailService _emailService;
+
+    public UserService(IUserRepository userRepository, IPassWordHasher passWordHasher, IEmailService emailService, ICurrentUser currentUser)
     {
         _userRepository = userRepository;
         _passWordHasher = passWordHasher;
-        _tokenJwt = tokenJwt;
+        _emailService = emailService;
         _currentUser = currentUser;
     }
     
@@ -135,6 +136,26 @@ public class UserService : IUserService
             return AppErrors.User.NotFound;
 
         await _userRepository.DeleteAsync(user);
+        return Result.Success;
+    }
+    
+    public async Task<ErrorOr<Success>> NewPasswordAsync(NewPassword request, CancellationToken ct)
+    {
+        var user = await _userRepository.GetByEmailAsync(request.Email);
+
+        if (user is null)
+            return AppErrors.User.NotFound;
+
+        var rawPassword = PasswordGenerator.GenerateRandomPassword(6);
+        
+        var rawPassWordHash = _passWordHasher.HashPassword(rawPassword);
+
+        user.NewPassWord(rawPassWordHash);
+
+        await _userRepository.UpdateAsync(user);
+
+        await _emailService.SendNewPasswordEmailAsync(user.Email, user.Name, rawPassword, ct);
+     
         return Result.Success;
     }
 }

@@ -101,7 +101,7 @@ public class BillService : IBillService
         return dtoThreeMetrics;
     }
 
-    public async Task<ErrorOr<List<DashboardGraphicView>>> GetDashboardChartAsync(DashboarGraphicFilter filter, CancellationToken ct)
+    public async Task<ErrorOr<List<DashboardGraphicView>>> GetDashboardGraphicAsync(DashboarGraphicFilter filter, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         if (userId < 0)
@@ -157,12 +157,10 @@ public class BillService : IBillService
         
         var bills = await _billRepository.GetByIdsDeleteAsync(request.billIds, userId, ct);
         
-        if (bills.Count != request.billIds.Length)
+        if (bills.Count < request.billIds.Length)
             return AppErrors.Bill.DifferentList;
         
-        _billRepository.RemoveRange(bills);
-        
-        await _unitOfWork.CommitAsync(ct);
+        await _billRepository.RemoveRangeAsync(bills, ct);
         
         return Result.Success;
     }

@@ -4,6 +4,7 @@ using FinanceHub.Domain.Entities;
 using FinanceHub.Domain.Enums;
 
 namespace FinanceHub.Domain.Interfaces.Repositories;
+
 public record BillQueryResult(EBillStatus Status, int Count, decimal Total);
 public interface IBillRepository
 {
@@ -12,7 +13,7 @@ public interface IBillRepository
     Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct);
     Task<List<DashboardGraphicView>> GetGraphicDataAsync(DashboarGraphicFilter filter, CancellationToken ct);
     Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken ct);
-    Task<List<Bill>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct);
-    void RemoveRange(IEnumerable<Bill> bills);
+    Task<List<int>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct);
+    Task RemoveRangeAsync(IEnumerable<int> bills, CancellationToken ct);
     Task<List<Bill>> GetPendingBillsForNotificationAsync(DateTime today, CancellationToken ct);
 }

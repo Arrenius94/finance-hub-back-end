@@ -1,4 +1,5 @@
 using ErrorOr;
+using FinanceHub.Application.Common;
 using FinanceHub.Application.Errors;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Category;
@@ -64,7 +65,7 @@ public class CategoryService : ICategoryService
         return Result.Success;
     }
 
-    public async Task<ErrorOr<List<CategoryView>>> GetAllAsync(CategoryFilter filter)
+    public async Task<ErrorOr<PagedResult<CategoryView>>> GetAllAsync(CategoryFilter filter)
     {
         var userId = _currentUser.UserId;
         

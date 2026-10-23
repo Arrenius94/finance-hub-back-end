@@ -75,4 +75,19 @@ public static class AppErrors
         public static Error NoBillsToDelete =>
             Error.Validation(code: "Bill.NoBillsToDelete", description: "Nenhuma conta selecionada para exclusão.");
     }
+    
+    public static class AccountReceivable
+    {
+        public static Error NotFound =>
+            Error.NotFound(code: "AccountReceivable.NotFound", description: "Contas a receber não encontrada.");
+        
+        public static Error Void =>
+            Error.NotFound(code: "AccountReceivable.Void", description: "Nenhuma conta selecionada");
+
+        public static Error UserNotAuthorized =>
+            Error.Validation(code: "AccountReceivable.UserNotAuthorized", description: "Usuário sem permissão para ver essas contas!");
+        
+        public static Error DifferentList =>
+            Error.NotFound(code: "AccountReceivable.DifferentList", description: "Algum pagamento não foi encontrado.");
+    }
 }

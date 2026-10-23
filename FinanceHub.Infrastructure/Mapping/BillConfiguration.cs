@@ -8,19 +8,39 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
 {
     public void Configure(EntityTypeBuilder<Bill> builder)
     {
-        builder
-            .ToTable("Bills")
-            .HasKey(b => b.Id);
+    
+        builder.ToTable("bills");
+        
+        builder.HasKey(b => b.Id);
+        builder.Property(b => b.Id)
+            .HasColumnName("id");
+        
+        builder.Property(x => x.Description)
+            .IsRequired()
+            .HasMaxLength(150)
+            .HasColumnName("description");
 
-        builder.Property(x => x.Description).IsRequired().HasMaxLength(150);
-        
-        builder.Property(x => x.Value).IsRequired().HasPrecision(18, 2);
-        
-        builder.Property(x => x.DateDue).IsRequired().HasColumnType("date");
+        builder.Property(x => x.Value)
+            .IsRequired()
+            .HasPrecision(18, 2)
+            .HasColumnName("value");
+
+        builder.Property(x => x.DateDue)
+            .IsRequired()
+            .HasColumnType("date")
+            .HasColumnName("date_due");
+
         builder.Property(x => x.DatePayment)
-            .HasColumnType("timestamp with time zone");
-        
-        builder.Property(x => x.BillStatus).IsRequired();
+            .HasColumnType("timestamp with time zone")
+            .HasColumnName("date_payment");
+
+        builder.Property(x => x.BillStatus)
+            .IsRequired()
+            .HasColumnName("bill_status");
+
+        builder.Property(x => x.CategoryId)
+            .IsRequired()
+            .HasColumnName("category_id");
         
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Bills)

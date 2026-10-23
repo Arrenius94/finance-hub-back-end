@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FinanceHub.API.Controllers;
 
 [Route("api/[controller]")]
+[ApiController]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService  _authService;
@@ -19,9 +20,9 @@ public class AuthController : ControllerBase
 
     [HttpPost("Login")]
     [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] LoginUser request)
+    public async Task<IActionResult> Login([FromBody] LoginUser request, CancellationToken ct)
     {
-        var result = await _authService.LoginUserAsync(request);
+        var result = await _authService.LoginUserAsync(request, ct);
         if (result.IsError) 
             return result.ToActionResult();
         
