@@ -1,6 +1,7 @@
 using ErrorOr;
 using FinanceHub.Application.Common;
 using FinanceHub.Application.Errors;
+using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Category;
 using FinanceHub.Domain.Entities;
@@ -65,21 +66,14 @@ public class CategoryService : ICategoryService
         return Result.Success;
     }
 
-    public async Task<ErrorOr<PagedResult<CategoryView>>> GetAllAsync(CategoryFilter filter)
+    public async Task<ErrorOr<PagedResult<CategoryView>>> GetAllAsync(CategoryFilter filter, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         
         if (userId <= 0)
             return AppErrors.User.NotFound;
-        
-        filter.RestrictUserId = userId;
-        
-        var category = await _categoryRepository.GetAllAsync(filter);
-        
-        if (category is null)
-            return AppErrors.Category.NotFound;
 
-        return category;
+        return await _categoryRepository.GetAllAsync(userId, filter, ct);
     }
 
     public async Task<ErrorOr<Success>> DeleteCategoryAsync(int categoryId)
@@ -103,5 +97,16 @@ public class CategoryService : ICategoryService
         }
         await _categoryRepository.DeleteAsync(category);
         return Result.Success;
+    }
+
+    public async Task<ErrorOr<CategoryDetailView>> GetByIdAsync(int id, BillFilter filter, CancellationToken ct)
+    {
+        var userId = _currentUser.UserId;
+        var result = await _categoryRepository.GetViewByIdAsync(id, userId, filter, ct);
+        if (result is null)
+        {
+            return AppErrors.Category.NotFound;
+        }
+        return result;
     }
 }

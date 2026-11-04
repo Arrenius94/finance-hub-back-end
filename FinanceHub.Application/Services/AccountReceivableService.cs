@@ -165,7 +165,7 @@ public class AccountReceivableService : IAccountReceivableService
                     dtoThreeMetrics.OverdueCount = item.Count;
                     dtoThreeMetrics.OverdueTotalValue = item.Total;
                     break;
-                
+
                 default:
                     break;
             }
@@ -184,5 +184,29 @@ public class AccountReceivableService : IAccountReceivableService
         var result = await _accountReceivableRepositoryrepository.GetGraphicDataAsync(filter, ct);
 
         return result;
+    }
+
+    public async Task<ErrorOr<Success>> DelAccountReceivableAsync(DelAccountReceivable delAccountReceivable, CancellationToken ct)
+    {
+        var userId = _currentUser.UserId;
+
+        if (userId < 0)
+            return AppErrors.User.NotFound;
+
+        if(delAccountReceivable.AccountReceivableIds.Count == 0)
+        {
+            return AppErrors.AccountReceivable.NoAccountsToDelete;
+        }
+
+        var result = await _accountReceivableRepositoryrepository.GetAccountReceivablesByIdsAsync(delAccountReceivable.AccountReceivableIds, userId, ct);
+
+        if (result.Count < delAccountReceivable.AccountReceivableIds.Count)
+        {
+            return AppErrors.AccountReceivable.DifferentListAccounts;
+        }
+
+        await _accountReceivableRepositoryrepository.RemoveRangeAsync(delAccountReceivable.AccountReceivableIds, userId, ct);
+
+        return Result.Success;
     }
 }

@@ -1,4 +1,5 @@
 namespace FinanceHub.Application.Errors;
+
 using ErrorOr;
 
 public static class AppErrors
@@ -25,13 +26,13 @@ public static class AppErrors
     {
         public static Error EmailAlreadyInUse =>
             Error.Conflict(code: "User.EmailInUse", description: "Email já cadastrado.");
-        
+
         public static Error NotFound =>
             Error.NotFound(code: "User.NotFound", description: "Usuário não encontrado.");
-        
+
         public static Error PasswordsDoNotMatch =>
             Error.Validation(code: "User.PasswordsDoNotMatch", description: "As senhas não coincidem.");
-        
+
         public static Error InsufficientBalance =>
             Error.Validation(code: "User.InsufficientBalance", description: "Saldo insuficiente.");
     }
@@ -40,13 +41,13 @@ public static class AppErrors
     {
         public static Error NameError =>
             Error.Conflict(code: "Category.NameInUse", description: "Nome da categoria é obrigatorio.");
-        
+
         public static Error TypeCategoryError =>
             Error.Conflict(code: "Category.TypeError", description: "Tipo da categoria é obrigatorio.");
-        
+
         public static Error NotFound =>
             Error.NotFound(code: "Category.NotFound", description: "Categoria não encontrado.");
-        
+
         public static Error Unauthorized =>
             Error.Unauthorized(code: "Category.Unauthorized", description: "Acesso negado para esta categoria.");
 
@@ -65,29 +66,35 @@ public static class AppErrors
     {
         public static Error NotFound =>
             Error.NotFound(code: "Bill.NotFound", description: "Contas não encontrada.");
-        
+
         public static Error NoBillsToPay =>
             Error.Validation(code: "Bill.NoBillsToPay", description: "Nenhuma conta selecionada para pagamento.");
-        
+
         public static Error DifferentList =>
             Error.NotFound(code: "Bill.DifferentList", description: "Alguma Conta não foi encontrada.");
-        
+
         public static Error NoBillsToDelete =>
             Error.Validation(code: "Bill.NoBillsToDelete", description: "Nenhuma conta selecionada para exclusão.");
     }
-    
+
     public static class AccountReceivable
     {
         public static Error NotFound =>
             Error.NotFound(code: "AccountReceivable.NotFound", description: "Contas a receber não encontrada.");
-        
+
         public static Error Void =>
             Error.NotFound(code: "AccountReceivable.Void", description: "Nenhuma conta selecionada");
 
         public static Error UserNotAuthorized =>
             Error.Validation(code: "AccountReceivable.UserNotAuthorized", description: "Usuário sem permissão para ver essas contas!");
-        
+
         public static Error DifferentList =>
             Error.NotFound(code: "AccountReceivable.DifferentList", description: "Algum pagamento não foi encontrado.");
+
+        public static Error NoAccountsToDelete =>
+            Error.Validation(code: "AccountReceivable.NoAccountsToDelete", description: "Nenhuma conta selecionada para exclusão.");
+
+        public static Error DifferentListAccounts =>
+            Error.NotFound(code: "AccountReceivable.DifferentList", description: "Alguma conta a receber não foi encontrada.");
     }
 }

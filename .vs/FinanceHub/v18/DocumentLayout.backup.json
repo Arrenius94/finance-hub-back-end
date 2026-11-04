@@ -3,36 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.api\\controllers\\accountreceivablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|solutionrelative:financehub.api\\controllers\\accountreceivablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\billrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\billrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\validations\\accountreceivable\\createaccountreceivablevalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\validations\\accountreceivable\\createaccountreceivablevalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|solutionrelative:financehub.api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.api\\controllers\\billcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|solutionrelative:financehub.api\\controllers\\billcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\entities\\accountreceivable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\entities\\accountreceivable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.api\\controllers\\accountreceivablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F9496A3-F70B-4F6B-A63D-C37B250FE292}|FinanceHub.API\\FinanceHub.API.csproj|solutionrelative:financehub.api\\controllers\\accountreceivablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6025588C-DDBF-4B01-9316-9987356B7708}|FinanceHub.Worker\\FinanceHub.Worker.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.worker\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6025588C-DDBF-4B01-9316-9987356B7708}|FinanceHub.Worker\\FinanceHub.Worker.csproj|solutionrelative:financehub.worker\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\notificationlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\notificationlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\billrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\billrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\interfaces\\repositories\\ibillrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\interfaces\\repositories\\ibillrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\accountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\accountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\interfaces\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\interfaces\\repositories\\iaccountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\interfaces\\repositories\\iaccountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\dtos\\output\\category\\categoryview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\dtos\\output\\category\\categoryview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.application\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|solutionrelative:financehub.application\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\interfaces\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\interfaces\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.application\\errors\\errors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|solutionrelative:financehub.application\\errors\\errors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.application\\services\\billservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|solutionrelative:financehub.application\\services\\billservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{035EB357-038A-4AFD-A5F7-17DCD6515AE2}|FinanceHub.Application\\FinanceHub.Application.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.application\\services\\accountreceivableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,6 +69,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\enums\\ereceivablestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\enums\\ereceivablestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.domain\\interfaces\\repositories\\iaccountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D42B58C3-263D-494F-A1E9-0A4938FC7F02}|FinanceHub.Domain\\FinanceHub.Domain.csproj|solutionrelative:financehub.domain\\interfaces\\repositories\\iaccountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\accountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\accountreceivablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|c:\\users\\arrenius\\riderprojects\\financehub\\financehub.infrastructure\\repositories\\unitofworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C57B0A33-456C-4615-B5F3-F72957EFE967}|FinanceHub.Infrastructure\\FinanceHub.Infrastructure.csproj|solutionrelative:financehub.infrastructure\\repositories\\unitofworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -53,40 +89,12 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 267,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 177,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountReceivableController.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\AccountReceivableController.cs",
-              "RelativeDocumentMoniker": "FinanceHub.API\\Controllers\\AccountReceivableController.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\AccountReceivableController.cs",
-              "RelativeToolTip": "FinanceHub.API\\Controllers\\AccountReceivableController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAAAD4AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-20T23:09:46.47Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AccountReceivable.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Entities\\AccountReceivable.cs",
-              "RelativeDocumentMoniker": "FinanceHub.Domain\\Entities\\AccountReceivable.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Entities\\AccountReceivable.cs",
-              "RelativeToolTip": "FinanceHub.Domain\\Entities\\AccountReceivable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-20T23:11:27.648Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "EReceivableStatus.cs",
               "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Enums\\EReceivableStatus.cs",
               "RelativeDocumentMoniker": "FinanceHub.Domain\\Enums\\EReceivableStatus.cs",
@@ -95,63 +103,125 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-20T23:11:34.637Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AccountReceivableRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
-              "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
-              "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAD4v2UAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-20T23:26:05.173Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 17,
               "Title": "IAccountReceivableRepository.cs",
               "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\IAccountReceivableRepository.cs",
               "RelativeDocumentMoniker": "FinanceHub.Domain\\Interfaces\\Repositories\\IAccountReceivableRepository.cs",
               "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\IAccountReceivableRepository.cs",
               "RelativeToolTip": "FinanceHub.Domain\\Interfaces\\Repositories\\IAccountReceivableRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBIAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-20T23:13:03.316Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AccountReceivableService.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\AccountReceivableService.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Application\\Services\\AccountReceivableService.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\AccountReceivableService.cs",
+              "RelativeToolTip": "FinanceHub.Application\\Services\\AccountReceivableService.cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAcwLwAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T23:24:54.248Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "FinanceHub.API\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "FinanceHub.API\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAwwDEAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T23:19:18.443Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "AccountReceivableService.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\AccountReceivableService.cs",
-              "RelativeDocumentMoniker": "FinanceHub.Application\\Services\\AccountReceivableService.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\AccountReceivableService.cs",
-              "RelativeToolTip": "FinanceHub.Application\\Services\\AccountReceivableService.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAjwJEAAABRAAAAAAAAAA==",
+              "Title": "CategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\CategoryRepository.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\CategoryRepository.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\CategoryRepository.cs",
+              "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\CategoryRepository.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAAJEAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-20T23:24:54.248Z",
+              "WhenOpened": "2026-10-29T23:23:06.911Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CategoryView.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\DTOS\\Output\\Category\\CategoryView.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Domain\\DTOS\\Output\\Category\\CategoryView.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\DTOS\\Output\\Category\\CategoryView.cs",
+              "RelativeToolTip": "FinanceHub.Domain\\DTOS\\Output\\Category\\CategoryView.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA4AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T23:56:04.095Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Application\\Services\\CategoryService.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\CategoryService.cs",
+              "RelativeToolTip": "FinanceHub.Application\\Services\\CategoryService.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAmwG4AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T23:22:49.968Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Worker.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Worker\\Worker.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Worker\\Worker.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Worker\\Worker.cs",
+              "RelativeToolTip": "FinanceHub.Worker\\Worker.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAADgv0MAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-04T22:52:38.957Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BillController.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\BillController.cs",
-              "RelativeDocumentMoniker": "FinanceHub.API\\Controllers\\BillController.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\BillController.cs",
-              "RelativeToolTip": "FinanceHub.API\\Controllers\\BillController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAowCgAAAAgAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AccountReceivableController.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\AccountReceivableController.cs",
+              "RelativeDocumentMoniker": "FinanceHub.API\\Controllers\\AccountReceivableController.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\AccountReceivableController.cs",
+              "RelativeToolTip": "FinanceHub.API\\Controllers\\AccountReceivableController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T00:38:19.989Z",
-              "IsPinned": true,
+              "WhenOpened": "2026-11-04T23:36:25.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NotificationLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\NotificationLogRepository.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\NotificationLogRepository.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\NotificationLogRepository.cs",
+              "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\NotificationLogRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-04T23:33:44.782Z",
               "EditorCaption": ""
             },
             {
@@ -159,54 +229,72 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateAccountReceivableValidation.cs",
-              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Validations\\AccountReceivable\\CreateAccountReceivableValidation.cs",
-              "RelativeDocumentMoniker": "FinanceHub.Domain\\Validations\\AccountReceivable\\CreateAccountReceivableValidation.cs",
-              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Validations\\AccountReceivable\\CreateAccountReceivableValidation.cs",
-              "RelativeToolTip": "FinanceHub.Domain\\Validations\\AccountReceivable\\CreateAccountReceivableValidation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T01:14:56.941Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{c6f34f0d-7ae5-4f3a-be61-fe0c21ae9eb8}"
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
+              "Title": "ICategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Services\\ICategoryService.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Domain\\Interfaces\\Services\\ICategoryService.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Services\\ICategoryService.cs",
+              "RelativeToolTip": "FinanceHub.Domain\\Interfaces\\Services\\ICategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-30T00:32:13.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Errors.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Errors\\Errors.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Application\\Errors\\Errors.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Errors\\Errors.cs",
+              "RelativeToolTip": "FinanceHub.Application\\Errors\\Errors.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAcwGEAAAB/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T21:08:30.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "IAccountReceivableService.cs",
               "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Services\\IAccountReceivableService.cs",
               "RelativeDocumentMoniker": "FinanceHub.Domain\\Interfaces\\Services\\IAccountReceivableService.cs",
               "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Services\\IAccountReceivableService.cs",
               "RelativeToolTip": "FinanceHub.Domain\\Interfaces\\Services\\IAccountReceivableService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAB2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T00:09:29.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T20:04:51.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "UnitOfWorkRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\UnitOfWorkRepository.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\UnitOfWorkRepository.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\UnitOfWorkRepository.cs",
+              "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\UnitOfWorkRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-27T23:35:07.013Z"
             }
           ]
         },
         {
-          "DockedWidth": 133,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 223,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "BillRepository.cs",
               "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\BillRepository.cs",
               "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\BillRepository.cs",
               "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\BillRepository.cs",
               "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\BillRepository.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAArwEgAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAAHcAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-20T23:07:39.707Z",
               "IsPinned": true,
@@ -214,17 +302,69 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IBillRepository.cs",
               "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\IBillRepository.cs",
               "RelativeDocumentMoniker": "FinanceHub.Domain\\Interfaces\\Repositories\\IBillRepository.cs",
               "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\IBillRepository.cs",
               "RelativeToolTip": "FinanceHub.Domain\\Interfaces\\Repositories\\IBillRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-20T23:26:49.259Z",
               "IsPinned": true,
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AccountReceivableRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
+              "RelativeToolTip": "FinanceHub.Infrastructure\\Repositories\\AccountReceivableRepository.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAYwKUAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T23:26:05.173Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BillController.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\BillController.cs",
+              "RelativeDocumentMoniker": "FinanceHub.API\\Controllers\\BillController.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.API\\Controllers\\BillController.cs",
+              "RelativeToolTip": "FinanceHub.API\\Controllers\\BillController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowEsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T00:38:19.989Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ICategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Domain\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Domain\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "RelativeToolTip": "FinanceHub.Domain\\Interfaces\\Repositories\\ICategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-30T00:08:33.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BillService.cs",
+              "DocumentMoniker": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\BillService.cs",
+              "RelativeDocumentMoniker": "FinanceHub.Application\\Services\\BillService.cs",
+              "ToolTip": "C:\\Users\\Arrenius\\RiderProjects\\FinanceHub\\FinanceHub.Application\\Services\\BillService.cs",
+              "RelativeToolTip": "FinanceHub.Application\\Services\\BillService.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAAwHQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T20:00:03.657Z"
             }
           ]
         }

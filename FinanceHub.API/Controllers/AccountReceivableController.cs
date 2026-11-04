@@ -82,7 +82,7 @@ public class AccountReceivableController : ControllerBase
             return result.ToActionResult();
         return Ok(result.Value);
     }
-    
+
     [Authorize]
     [HttpGet("dashboard-graphics-receivable")]
     public async Task<IActionResult> GetDashboardGraphicsReceivable([FromQuery] DashBoardGraphicFilter filter, CancellationToken ct)
@@ -91,6 +91,16 @@ public class AccountReceivableController : ControllerBase
         if (result.IsError)
             return result.ToActionResult();
         return Ok(result.Value);
+    }
+
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAccountReceivable([FromBody] DelAccountReceivable delAccountReceivable, CancellationToken ct)
+    {
+        var result = await _accountReceivableService.DelAccountReceivableAsync(delAccountReceivable, ct);
+        if (result.IsError)
+            return result.ToActionResult();
+        return Ok();
     }
 
 }

@@ -13,4 +13,5 @@ public interface IAccountReceivableService
     Task<ErrorOr<Success>> ReceivedListAsync(AccountReceivedListRequest receivedListRequest, CancellationToken ct);
     Task<ErrorOr<DashBoardMetricsView>> GetThreeMetricsAsync(CancellationToken ct);
     Task<ErrorOr<List<DashBoardGraphicView>>> GetGraphicDataAsync(DashBoardGraphicFilter filter, CancellationToken ct);
+    Task<ErrorOr<Success>> DelAccountReceivableAsync(DelAccountReceivable delAccountReceivable, CancellationToken ct);
 }

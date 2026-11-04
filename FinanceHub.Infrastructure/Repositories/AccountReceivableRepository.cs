@@ -129,7 +129,7 @@ public class AccountReceivableRepository : IAccountReceivableRepository
         {
             query = query.Where(a => filter.Status.Contains(a.Status));
         }
-        
+
         if (filter.Month.HasValue)
         {
             query = query.Where(a => a.ReceiveDate.Month == filter.Month);
@@ -143,11 +143,27 @@ public class AccountReceivableRepository : IAccountReceivableRepository
         var result = await query
             .GroupBy(a => a.Status)
             .Select(g => new DashBoardGraphicView(
-                g.Key, 
+                g.Key,
       g.Sum(x => x.Value)
             ))
             .ToListAsync(ct);
-        
+
         return result;
+    }
+
+    public async Task<List<AccountReceivable>> GetAccountReceivablesByIdsAsync(List<int> ids, int userId, CancellationToken ct)
+    {
+        var query = await _dbContext.AccountReceivables
+            .Where(a => ids.Contains(a.Id) && a.UserId == userId)
+            .ToListAsync(ct);
+
+        return query;
+    }
+
+    public async Task RemoveRangeAsync(List<int> accountReceivableIds, int userId, CancellationToken ct)
+    {
+        await _dbContext.AccountReceivables
+            .Where(a => accountReceivableIds.Contains(a.Id) && a.UserId == userId)
+            .ExecuteDeleteAsync(ct);
     }
 }

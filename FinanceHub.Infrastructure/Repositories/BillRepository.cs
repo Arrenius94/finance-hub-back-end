@@ -15,17 +15,17 @@ public class BillRepository : IBillRepository
     {
         _dbContext = dbContext;
     }
-    
-    public async Task<int> SaveAsync (Bill bill)
+
+    public async Task<int> SaveAsync(Bill bill)
     {
         await _dbContext.Bills.AddAsync(bill);
         await _dbContext.SaveChangesAsync();
-        
+
         return bill.Id;
     }
 
-    public void Added (Bill bill)
-    { 
+    public void Added(Bill bill)
+    {
         _dbContext.Bills.Add(bill);
     }
     public async Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct)
@@ -54,22 +54,22 @@ public class BillRepository : IBillRepository
         var query = _dbContext.Bills.AsNoTracking()
             .Where(b => b.Category.UserId == filter.UserId);
 
-        if(filter.Month.HasValue)
+        if (filter.Month.HasValue)
         {
             query = query.Where(b => b.DateDue.Month == filter.Month);
         }
-        
-        if(filter.Year.HasValue)
+
+        if (filter.Year.HasValue)
         {
             query = query.Where(b => b.DateDue.Year == filter.Year);
         }
-        
-        if(filter.CategoryTypes is { Count: > 0 })
+
+        if (filter.CategoryTypes is { Count: > 0 })
         {
-            query = query.Where(b => filter.CategoryTypes.Contains(b.Category.CategoryType));   
+            query = query.Where(b => filter.CategoryTypes.Contains(b.Category.CategoryType));
         }
-        
-        var result = await query 
+
+        var result = await query
             .GroupBy(b => b.Category.Name)
             .Select(g => new DashboardGraphicView
             {
@@ -77,18 +77,18 @@ public class BillRepository : IBillRepository
                 TotalValue = g.Sum(b => b.Value)
             })
             .ToListAsync(ct);
-        
+
         return result;
     }
 
-    public async Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken  ct)
+    public async Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken ct)
     {
         var result = await _dbContext.Bills
             .Include(b => b.Category)
             .ThenInclude(c => c.User)
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId && b.BillStatus != EBillStatus.Paid)
             .ToListAsync(ct);
-        
+
         return result;
     }
 
@@ -96,15 +96,15 @@ public class BillRepository : IBillRepository
     {
         var result = await _dbContext.Bills
             .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId)
-            .Select(b  => b.Id)
+            .Select(b => b.Id)
             .ToListAsync(ct);
         return result;
     }
 
-    public async Task RemoveRangeAsync(IEnumerable<int> billsIds, CancellationToken ct)
+    public async Task RemoveRangeAsync(List<int> billsIds, int userId, CancellationToken ct)
     {
         await _dbContext.Bills
-            .Where(b => billsIds.Contains(b.Id))
+            .Where(b => billsIds.Contains(b.Id) && b.Category.UserId == userId)
             .ExecuteDeleteAsync(ct);
     }
 
@@ -123,7 +123,7 @@ public class BillRepository : IBillRepository
                 b.DateDue.Date == inSevenDays
             ))
             .ToListAsync(ct);
-;        
+        ;
         return query;
     }
 }

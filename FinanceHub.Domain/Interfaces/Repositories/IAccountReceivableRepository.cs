@@ -15,4 +15,6 @@ public interface IAccountReceivableRepository
     Task<List<AccountReceivable>> GetByIdsAccountReceived(List<int> receivedIds, int userId, CancellationToken ct);
     Task<List<AccountReiceivableQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct);
     Task<List<DashBoardGraphicView>> GetGraphicDataAsync(DashBoardGraphicFilter filter, CancellationToken ct);
+    Task<List<AccountReceivable>> GetAccountReceivablesByIdsAsync(List<int> ids, int userId, CancellationToken ct);
+    Task RemoveRangeAsync(List<int> accountReceivableIds, int userId, CancellationToken ct);
 }

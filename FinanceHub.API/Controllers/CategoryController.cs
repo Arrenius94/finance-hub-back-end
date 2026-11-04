@@ -1,7 +1,6 @@
-using System.Security.Claims;
 using FinanceHub.API.ExtensionsErrors;
+using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
-using FinanceHub.Domain.Interfaces.Repositories;
 using FinanceHub.Domain.Interfaces.Services;
 using FinanceHub.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -16,8 +15,8 @@ public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
     private readonly ICurrentUser _currentUser;
-    
-    public CategoryController(ICategoryService categoryService,  ICurrentUser currentUser)
+
+    public CategoryController(ICategoryService categoryService, ICurrentUser currentUser)
     {
         _categoryService = categoryService;
         _currentUser = currentUser;
@@ -30,7 +29,7 @@ public class CategoryController : ControllerBase
         var result = await _categoryService.CreateCategoryAsync(request);
         if (result.IsError)
             return result.ToActionResult();
-        
+
         return Ok(new { id = result.Value });
     }
 
@@ -45,19 +44,19 @@ public class CategoryController : ControllerBase
 
         return NoContent();
     }
-    
+
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAllCategories([FromQuery] CategoryFilter filter)
+    public async Task<IActionResult> GetAllCategories([FromQuery] CategoryFilter filter, CancellationToken ct)
     {
-        var result = await _categoryService.GetAllAsync(filter);
-        
+        var result = await _categoryService.GetAllAsync(filter, ct);
+
         if (result.IsError)
             return result.ToActionResult();
 
         return Ok(result.Value);
     }
-    
+
     [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCategory([FromRoute] int id)
@@ -68,5 +67,17 @@ public class CategoryController : ControllerBase
             return result.ToActionResult();
 
         return NoContent();
+    }
+
+    [Authorize]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetCategoryById([FromRoute] int id, [FromQuery] BillFilter filter, CancellationToken ct)
+    {
+        var result = await _categoryService.GetByIdAsync(id, filter, ct);
+
+        if (result.IsError)
+            return result.ToActionResult();
+
+        return Ok(result.Value);
     }
 }

@@ -8,12 +8,12 @@ namespace FinanceHub.Domain.Interfaces.Repositories;
 public record BillQueryResult(EBillStatus Status, int Count, decimal Total);
 public interface IBillRepository
 {
-    Task <int> SaveAsync (Bill bill);
-    void Added (Bill bill);
+    Task<int> SaveAsync(Bill bill);
+    void Added(Bill bill);
     Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct);
     Task<List<DashboardGraphicView>> GetGraphicDataAsync(DashboarGraphicFilter filter, CancellationToken ct);
     Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken ct);
     Task<List<int>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct);
-    Task RemoveRangeAsync(IEnumerable<int> bills, CancellationToken ct);
+    Task RemoveRangeAsync(List<int> bills, int userId, CancellationToken ct);
     Task<List<Bill>> GetPendingBillsForNotificationAsync(DateTime today, CancellationToken ct);
 }
