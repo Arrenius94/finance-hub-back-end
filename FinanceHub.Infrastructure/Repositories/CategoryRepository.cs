@@ -1,5 +1,4 @@
 using FinanceHub.Application.Common;
-using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Bill;
 using FinanceHub.Domain.DTOS.Output.Category;
@@ -77,7 +76,7 @@ public class CategoryRepository : ICategoryRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<CategoryDetailView?> GetViewByIdAsync(int id, int userId, BillFilter filter, CancellationToken ct)
+    public async Task<CategoryDetailView?> GetViewByIdAsync(int id, int userId, CategoryBillsFilter filter, CancellationToken ct)
     {
         var category = await _dbContext.Categories
             .AsNoTracking()
@@ -113,7 +112,9 @@ public class CategoryRepository : ICategoryRepository
                     ? EBillStatus.Paid
                     : b.DateDue < day
                         ? EBillStatus.Overdue
-                        : EBillStatus.Pending
+                        : EBillStatus.Pending,
+                InstallmentNumber = b.InstallmentNumber,
+                TotalInstallments = b.TotalInstallments
             })
             .ToPagedListAsync(filter.PageIndex, filter.PageSize, ct);
 
@@ -126,25 +127,25 @@ public class CategoryRepository : ICategoryRepository
         };
     }
 
-    private static IQueryable<Bill> ApplyBillFilter(IQueryable<Bill> query, BillFilter filter, DateTime day)
+    private static IQueryable<Bill> ApplyBillFilter(IQueryable<Bill> bills, CategoryBillsFilter filter, DateTime day)
     {
         if (filter.BillStatus is not null)
         {
-            query = filter.BillStatus switch
+            bills = filter.BillStatus switch
             {
-                EBillStatus.Paid => query.Where(b => b.DatePayment != null),
-                EBillStatus.Pending => query.Where(b => b.DatePayment == null && b.DateDue >= day),
-                EBillStatus.Overdue => query.Where(b => b.DatePayment == null && b.DateDue < day),
-                _ => query
+                EBillStatus.Paid => bills.Where(b => b.DatePayment != null),
+                EBillStatus.Pending => bills.Where(b => b.DatePayment == null && b.DateDue >= day),
+                EBillStatus.Overdue => bills.Where(b => b.DatePayment == null && b.DateDue < day),
+                _ => bills
             };
         }
 
         if (filter.StartDate is not null)
-            query = query.Where(b => b.DateDue >= filter.StartDate);
+            bills = bills.Where(b => b.DateDue >= filter.StartDate);
 
         if (filter.EndDate is not null)
-            query = query.Where(b => b.DateDue <= filter.EndDate);
+            bills = bills.Where(b => b.DateDue <= filter.EndDate);
 
-        return query;
+        return bills;
     }
 }

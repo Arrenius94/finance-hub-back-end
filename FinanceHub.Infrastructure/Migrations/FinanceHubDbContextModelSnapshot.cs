@@ -41,6 +41,16 @@ namespace FinanceHub.Infrastructure.Migrations
                         .HasColumnType("character varying(150)")
                         .HasColumnName("description");
 
+                    b.Property<Guid?>("InstallmentGroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("installment_group_id");
+
+                    b.Property<int>("InstallmentNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("installment_number");
+
                     b.Property<DateOnly>("ReceiveDate")
                         .HasColumnType("date")
                         .HasColumnName("receive_date");
@@ -48,6 +58,12 @@ namespace FinanceHub.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer")
                         .HasColumnName("status");
+
+                    b.Property<int>("TotalInstallments")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("total_installments");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
@@ -58,6 +74,9 @@ namespace FinanceHub.Infrastructure.Migrations
                         .HasColumnName("value");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstallmentGroupId")
+                        .HasDatabaseName("ix_accounts_receivable_installment_group_id");
 
                     b.HasIndex("UserId");
 
@@ -99,6 +118,22 @@ namespace FinanceHub.Infrastructure.Migrations
                         .HasColumnType("character varying(150)")
                         .HasColumnName("description");
 
+                    b.Property<Guid?>("InstallmentGroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("installment_group_id");
+
+                    b.Property<int>("InstallmentNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("installment_number");
+
+                    b.Property<int>("TotalInstallments")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("total_installments");
+
                     b.Property<decimal>("Value")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")
@@ -107,6 +142,9 @@ namespace FinanceHub.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("InstallmentGroupId")
+                        .HasDatabaseName("ix_bills_installment_group_id");
 
                     b.ToTable("bills", (string)null);
                 });

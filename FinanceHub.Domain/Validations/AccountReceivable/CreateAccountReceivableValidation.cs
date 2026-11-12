@@ -29,6 +29,9 @@ public class CreateAccountReceivableValidation : AbstractValidator<CreateAccount
             .Must(s => s is EReceivableStatus.Pending or EReceivableStatus.Received)
             .WithMessage("Informe um status válido (Pendente ou Recebido).");
 
-        
+        RuleFor(x => x.InstallmentCount)
+            .GreaterThanOrEqualTo(2)
+            .When(x => x.InstallmentCount.HasValue)
+            .WithMessage("Informe a quantidade de parcelas (mínimo 2).");
     }
 }

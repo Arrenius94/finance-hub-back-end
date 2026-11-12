@@ -16,5 +16,10 @@ public class CreateBillValidation : AbstractValidator<CreateBillRequest>
 
         RuleFor(x => x.DateDue)
             .NotEmpty().WithMessage("A data de vencimento é obrigatória.");
-    } 
+
+        RuleFor(x => x.InstallmentCount)
+          .GreaterThanOrEqualTo(2)
+          .When(x => x.InstallmentCount.HasValue)
+          .WithMessage("Informe a quantidade de parcelas (mínimo 2).");
+    }
 }

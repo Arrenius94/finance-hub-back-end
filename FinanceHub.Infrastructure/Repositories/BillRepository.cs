@@ -126,4 +126,93 @@ public class BillRepository : IBillRepository
         ;
         return query;
     }
+
+    public async Task<BillView?> GetByIdAsync(int userId, int id, CancellationToken ct)
+    {
+        var day = DateTime.UtcNow.AddHours(-3).Date;
+        var bill = await _dbContext.Bills
+            .AsNoTracking()
+            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .Select(b => new BillView
+            {
+                Id = b.Id,
+                Description = b.Description,
+                Value = b.Value,
+                DateDue = b.DateDue,
+                DatePayment = b.DatePayment,
+                BillStatus = b.DatePayment != null
+                                ? EBillStatus.Paid
+                                : b.DateDue < day
+                                    ? EBillStatus.Overdue
+                                    : EBillStatus.Pending,
+                InstallmentNumber = b.InstallmentNumber,
+                TotalInstallments = b.TotalInstallments
+            })
+            .FirstOrDefaultAsync(ct);
+        return bill;
+    }
+
+    public async Task<BillDetailView?> GetInstallmentsByBillIdAsync(int userId, int id, CancellationToken ct)
+    {
+        var day = DateTime.UtcNow.AddHours(-3).Date;
+
+        var source = await _dbContext.Bills
+            .AsNoTracking()
+            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .Select(b => new { b.Id, b.InstallmentGroupId })
+            .FirstOrDefaultAsync(ct);
+
+        if (source is null)
+            return null;
+
+        var query = _dbContext.Bills
+            .AsNoTracking()
+            .Where(b => b.Category.UserId == userId);
+
+        if (source.InstallmentGroupId.HasValue)
+            query = query.Where(b => b.InstallmentGroupId == source.InstallmentGroupId);
+        else
+            query = query.Where(b => b.Id == id);
+
+        var bills = await query
+            .OrderBy(b => b.InstallmentNumber)
+            .ThenBy(b => b.DateDue)
+            .Select(b => new BillView
+            {
+                Id = b.Id,
+                Description = b.Description,
+                Value = b.Value,
+                DateDue = b.DateDue,
+                DatePayment = b.DatePayment,
+                BillStatus = b.DatePayment != null
+                    ? EBillStatus.Paid
+                    : b.DateDue < day
+                        ? EBillStatus.Overdue
+                        : EBillStatus.Pending,
+                InstallmentNumber = b.InstallmentNumber,
+                TotalInstallments = b.TotalInstallments
+            })
+            .ToListAsync(ct);
+
+        if (bills.Count == 0)
+            return null;
+
+        var first = bills[0];
+
+        return new BillDetailView
+        {
+            Description = first.Description,
+            TotalValue = bills.Sum(b => b.Value),
+            TotalInstallments = first.TotalInstallments,
+            PaidCount = bills.Count(b => b.BillStatus == EBillStatus.Paid),
+            Bills = bills
+        };
+    }
+
+    public async Task<Bill?> GetBillIdAsync(int id, int userId, CancellationToken ct)
+    {
+        return await _dbContext.Bills
+            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .FirstOrDefaultAsync(ct);
+    }
 }

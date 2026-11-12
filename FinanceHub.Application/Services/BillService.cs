@@ -46,25 +46,43 @@ public class BillService : IBillService
         if (category.UserId != userId)
             return AppErrors.Category.Unauthorized;
 
-        var bill = new Bill(
-            request.Description,
-            request.Value,
-            request.DateDue,
-            request.DatePayment,
-            request.CategoryId
-        );
+        var totalInstallments = request.InstallmentCount ?? 1;
+        var groupId = totalInstallments > 1 ? Guid.NewGuid() : (Guid?)null;
 
-        _billRepository.Added(bill);
+        var installmentValue = Math.Round(request.Value / totalInstallments, 2, MidpointRounding.ToZero);
+        var lastInstallmentValue = request.Value - (installmentValue * (totalInstallments - 1));
 
-        if (bill.DatePayment.HasValue)
+        Bill? first = null;
+
+        for (int i = 1; i <= totalInstallments; i++)
         {
-            user.DecreaseValue(bill.Value);
+            var value = i == totalInstallments ? lastInstallmentValue : installmentValue;
+            var due = request.DateDue.AddMonths(i - 1);
+
+            var bill = new Bill(
+                request.Description,
+                value,
+                due,
+                i == 1 ? request.DatePayment : null,
+                request.CategoryId,
+                groupId,
+                i,
+                totalInstallments
+             );
+
+            _billRepository.Added(bill);
+            first ??= bill;
+        }
+
+        if (first!.DatePayment.HasValue)
+        {
+            user.DecreaseValue(first.Value);
             _userRepository.AttachForUpdate(user);
         }
 
         await _unitOfWork.CommitAsync(ct);
 
-        return bill.Id;
+        return first.Id;
     }
 
     public async Task<ErrorOr<DashboardMetricsView>> GetDashboardMetricsAsync(CancellationToken ct)
@@ -161,6 +179,51 @@ public class BillService : IBillService
             return AppErrors.Bill.DifferentList;
 
         await _billRepository.RemoveRangeAsync(bills, userId, ct);
+
+        return Result.Success;
+    }
+
+    public async Task<ErrorOr<BillDetailView>> GetBillIdAsync(int id, CancellationToken ct)
+    {
+        var userId = _currentUser.UserId;
+        if (userId < 0)
+            return AppErrors.User.NotFound;
+
+        var detail = await _billRepository.GetInstallmentsByBillIdAsync(userId, id, ct);
+
+        if (detail is null)
+            return AppErrors.Bill.NotFound;
+
+        return detail;
+    }
+
+    public async Task<ErrorOr<Success>> UpdateBillAsync(int id, UpdateBill request, CancellationToken ct)
+    {
+        var userId = _currentUser.UserId;
+        if (userId < 0)
+            return AppErrors.User.NotFound;
+
+        var bill = await _billRepository.GetBillIdAsync(id, userId, ct);
+        if (bill is null)
+            return AppErrors.Bill.NotFound;
+
+        if (request.CategoryId is int newCategoryId)
+        {
+            var category = await _categoryRepository.GetByIdAsync(newCategoryId);
+            if (category is null)
+                return AppErrors.Category.NotFound;
+            if (category.UserId != userId)
+                return AppErrors.Category.Unauthorized;
+        }
+
+        bill.UpdateBill(
+            request.Description,
+            request.Value,
+            request.DateDue,
+            request.CategoryId
+        );
+
+        await _unitOfWork.CommitAsync(ct);
 
         return Result.Success;
     }

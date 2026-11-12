@@ -7,5 +7,6 @@ public record CreateAccountReceivableRequest
         string Description, 
         decimal Value, 
         DateOnly ReceiveDate, 
-        EReceivableStatus ReceiveStatus
+        EReceivableStatus ReceiveStatus,
+        int? InstallmentCount = null
 );

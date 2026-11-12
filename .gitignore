@@ -30,3 +30,16 @@
 .DS_Store
 Thumbs.db
 
+
+# Visual Studio / Rider
+.vs/
+.idea/
+
+# Arquivos temporários
+bin/
+obj/
+
+# Arquivos de usuário
+*.user
+*.suo
+*.vsidx

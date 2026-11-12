@@ -36,41 +36,47 @@ public class AccountReceivableService : IAccountReceivableService
             return AppErrors.User.NotFound;
         }
 
-        var accountReceivable = new AccountReceivable
-        (
-            request.Description,
-            request.Value,
-            request.ReceiveDate,
-            request.ReceiveStatus,
-            userId
-        );
+        var totalInstallments = request.InstallmentCount ?? 1;
+        var groupId = totalInstallments > 1 ? Guid.NewGuid() : (Guid?)null;
+        var installmentValue = Math.Round(request.Value / totalInstallments, 2, MidpointRounding.ToZero);
+        var lastInstallmentValue = request.Value - (installmentValue * (totalInstallments - 1));
 
-        await _accountReceivableRepositoryrepository.SaveAsync(accountReceivable, ct);
+        AccountReceivable? first = null;
 
-        return accountReceivable.Id;
+        for (var i = 1; i <= totalInstallments; i++)
+        {
+            var value = i == totalInstallments ? lastInstallmentValue : installmentValue;
+            var receiveDate = request.ReceiveDate.AddMonths(i - 1);
+            var status = i == 1 ? request.ReceiveStatus : EReceivableStatus.Pending;
+            
+            var accountReceivable = new AccountReceivable(
+                request.Description,
+                value,
+                receiveDate,
+                status,
+                userId,
+                groupId,
+                i,
+                totalInstallments
+            );
+            _accountReceivableRepositoryrepository.Added(accountReceivable);
+            first ??= accountReceivable;
+        }
+        await _unitOfWork.CommitAsync(ct);
+        return first!.Id;
     }
 
-    public async Task<ErrorOr<AccountReceivableView>> GetAccountReceivableViewAsync(int id, CancellationToken ct)
+    public async Task<ErrorOr<AccountReceivableDetailView>> GetAccountReceivableViewAsync(int id, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
 
-        var accountReceivable = await _accountReceivableRepositoryrepository.GetByIdAsync(userId, id, ct);
+        var accountReceivable = await _accountReceivableRepositoryrepository.GetInstallmentsByIdAsync(userId, id, ct);
 
         if (accountReceivable is null)
         {
             return AppErrors.AccountReceivable.NotFound;
         }
-
-        var response = new AccountReceivableView
-        {
-            Description = accountReceivable.Description,
-            Value = accountReceivable.Value,
-            CreatedDate = DateOnly.FromDateTime(accountReceivable.CreatedAt),
-            ReceivedDate = accountReceivable.ReceiveDate,
-            Status = accountReceivable.Status
-        };
-
-        return response;
+        return accountReceivable;
     }
 
     public async Task<ErrorOr<List<AccountReceivableView>>> GetAllReceivableViewAsync(AccountReceivableFilter request, CancellationToken ct)

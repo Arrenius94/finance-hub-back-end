@@ -1,5 +1,4 @@
 using FinanceHub.Application.Common;
-using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Category;
 using FinanceHub.Domain.Entities;
@@ -14,5 +13,5 @@ public interface ICategoryRepository
     Task<PagedResult<CategoryView>> GetAllAsync(int userId, CategoryFilter filter, CancellationToken ct);
     Task<bool> HasPendingBillsAsync(int categoryId);
     Task DeleteAsync(Category category);
-    Task<CategoryDetailView?> GetViewByIdAsync(int id, int userId, BillFilter filter, CancellationToken ct);
+    Task<CategoryDetailView?> GetViewByIdAsync(int id, int userId, CategoryBillsFilter filter, CancellationToken ct);
 }

@@ -24,6 +24,11 @@ public class AccountReceivableRepository : IAccountReceivableRepository
         return accountReceivable.Id;
     }
 
+    public void Added(AccountReceivable accountReceivable)
+    {
+        _dbContext.AccountReceivables.Add(accountReceivable);
+    }
+
     public async Task<AccountReceivable?> GetByIdAsync(int userId, int id, CancellationToken ct)
     {
         var query = await _dbContext.AccountReceivables
@@ -31,6 +36,65 @@ public class AccountReceivableRepository : IAccountReceivableRepository
             .FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId, ct);
 
         return query;
+    }
+
+    public async Task<AccountReceivableDetailView?> GetInstallmentsByIdAsync(int userId, int id, CancellationToken ct)
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow.AddHours(-3));
+        var source = await _dbContext.AccountReceivables
+            .AsNoTracking()
+            .Where(a => a.Id == id && a.UserId == userId)
+            .Select(a => new { a.Id, a.InstallmentGroupId })
+            .FirstOrDefaultAsync(ct);
+        
+        if (source is null)
+            return null;
+
+        var query = _dbContext.AccountReceivables
+            .AsNoTracking()
+            .Where(a => a.UserId == userId);
+
+        if (source.InstallmentGroupId.HasValue)
+        { 
+            query = query.Where(a => a.InstallmentGroupId == source.InstallmentGroupId);
+        }
+        else
+        {
+            query = query.Where(a => a.Id == id);
+        }
+
+        var receivables = await query
+            .OrderBy(a => a.InstallmentNumber)
+            .ThenBy(a => a.ReceiveDate)
+            .Select(a => new AccountReceivableView
+            {
+                Id = a.Id,
+                Description = a.Description,
+                Value = a.Value,
+                CreatedDate = DateOnly.FromDateTime(a.CreatedAt),
+                ReceivedDate = a.ReceiveDate,
+                Status = a.Status == EReceivableStatus.Received
+                    ? EReceivableStatus.Received
+                    : a.ReceiveDate < today
+                        ? EReceivableStatus.Overdue
+                        : EReceivableStatus.Pending,
+                InstallmentCount = a.InstallmentNumber,
+                TotalInstallments = a.TotalInstallments
+            })
+            .ToListAsync(ct);
+        
+        if (receivables.Count == 0)
+            return null;
+        var first = receivables[0];
+
+        return new AccountReceivableDetailView
+        {
+            Description = first.Description,
+            TotalValue = receivables.Sum(a => a.Value),
+            TotalInstallments = first.TotalInstallments,
+            ReceivedCount = receivables.Count(a => a.Status == EReceivableStatus.Received),
+            Installments = receivables
+        };
     }
 
     public async Task<List<AccountReceivableView>> GetAllAsync(int userId, AccountReceivableFilter filter, CancellationToken ct)
@@ -69,6 +133,7 @@ public class AccountReceivableRepository : IAccountReceivableRepository
         var result = await query
             .Select(a => new AccountReceivableView
             {
+                Id = a.Id,
                 Description = a.Description,
                 Value = a.Value,
                 CreatedDate = DateOnly.FromDateTime(a.CreatedAt),
@@ -77,7 +142,9 @@ public class AccountReceivableRepository : IAccountReceivableRepository
                     ? EReceivableStatus.Received
                     : a.ReceiveDate < today
                         ? EReceivableStatus.Overdue
-                        : EReceivableStatus.Pending
+                        : EReceivableStatus.Pending,
+                InstallmentCount = a.InstallmentNumber,
+                TotalInstallments = a.TotalInstallments
             }).ToListAsync(ct);
 
         return result;

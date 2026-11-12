@@ -8,13 +8,13 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
 {
     public void Configure(EntityTypeBuilder<Bill> builder)
     {
-    
+
         builder.ToTable("bills");
-        
+
         builder.HasKey(b => b.Id);
         builder.Property(b => b.Id)
             .HasColumnName("id");
-        
+
         builder.Property(x => x.Description)
             .IsRequired()
             .HasMaxLength(150)
@@ -41,10 +41,28 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
         builder.Property(x => x.CategoryId)
             .IsRequired()
             .HasColumnName("category_id");
-        
+
+        builder.Property(x => x.InstallmentGroupId)
+            .HasColumnName("installment_group_id")
+            .HasColumnType("uuid")
+            .IsRequired(false);
+
+        builder.HasIndex(x => x.InstallmentGroupId)
+            .HasDatabaseName("ix_bills_installment_group_id");
+
+        builder.Property(x => x.InstallmentNumber)
+            .HasColumnName("installment_number")
+            .IsRequired()
+            .HasDefaultValue(1);
+
+        builder.Property(x => x.TotalInstallments)
+            .HasColumnName("total_installments")
+            .IsRequired()
+            .HasDefaultValue(1);
+
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Bills)
             .HasForeignKey(x => x.CategoryId)
-            .OnDelete(DeleteBehavior.Cascade); 
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -16,4 +16,7 @@ public interface IBillRepository
     Task<List<int>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct);
     Task RemoveRangeAsync(List<int> bills, int userId, CancellationToken ct);
     Task<List<Bill>> GetPendingBillsForNotificationAsync(DateTime today, CancellationToken ct);
+    Task<BillView?> GetByIdAsync(int userId, int id, CancellationToken ct);
+    Task<BillDetailView?> GetInstallmentsByBillIdAsync(int userId, int id, CancellationToken ct);
+    Task<Bill?> GetBillIdAsync(int id, int userId, CancellationToken ct);
 }

@@ -37,7 +37,23 @@ public class AccountReceivableConfiguration : IEntityTypeConfiguration<AccountRe
             .IsRequired()
             .HasColumnName("user_id");
 
-        
+        builder.Property(x => x.InstallmentGroupId)
+             .HasColumnName("installment_group_id")
+             .HasColumnType("uuid")
+             .IsRequired(false);
+        builder.HasIndex(x => x.InstallmentGroupId)
+            .HasDatabaseName("ix_accounts_receivable_installment_group_id");
+
+        builder.Property(x => x.InstallmentNumber)
+            .HasColumnName("installment_number")
+            .IsRequired()
+            .HasDefaultValue(1);
+
+        builder.Property(x => x.TotalInstallments)
+            .HasColumnName("total_installments")
+            .IsRequired()
+            .HasDefaultValue(1);
+
         builder.HasOne(r => r.User)
             .WithMany(u => u.AccountReceivables)
             .HasForeignKey(r => r.UserId)

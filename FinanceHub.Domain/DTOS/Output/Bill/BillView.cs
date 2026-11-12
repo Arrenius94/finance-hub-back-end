@@ -10,4 +10,6 @@ public class BillView
     public DateTime DateDue { get; set; }
     public DateTime? DatePayment { get; set; }
     public EBillStatus BillStatus { get; set; }
+    public int InstallmentNumber { get; set; }
+    public int TotalInstallments { get; set; }
 }

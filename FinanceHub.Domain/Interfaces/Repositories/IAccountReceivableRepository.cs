@@ -9,7 +9,9 @@ public record AccountReiceivableQueryResult(EReceivableStatus Status, int Count,
 public interface IAccountReceivableRepository
 {
     Task<int> SaveAsync(AccountReceivable accountReceivable, CancellationToken ct);
+    void Added(AccountReceivable accountReceivable);
     Task<AccountReceivable?> GetByIdAsync(int userId, int id, CancellationToken ct);
+    Task<AccountReceivableDetailView?> GetInstallmentsByIdAsync(int userId, int id, CancellationToken ct);   
     Task<List<AccountReceivableView>> GetAllAsync(int userId, AccountReceivableFilter filter, CancellationToken ct);
     Task UpdateAsync(AccountReceivable accountReceivable);
     Task<List<AccountReceivable>> GetByIdsAccountReceived(List<int> receivedIds, int userId, CancellationToken ct);

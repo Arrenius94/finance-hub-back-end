@@ -1,5 +1,4 @@
 using FinanceHub.API.ExtensionsErrors;
-using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.Interfaces.Services;
 using FinanceHub.Infrastructure.Security;
@@ -71,7 +70,7 @@ public class CategoryController : ControllerBase
 
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategoryById([FromRoute] int id, [FromQuery] BillFilter filter, CancellationToken ct)
+    public async Task<IActionResult> GetCategoryById([FromRoute] int id, [FromQuery] CategoryBillsFilter filter, CancellationToken ct)
     {
         var result = await _categoryService.GetByIdAsync(id, filter, ct);
 

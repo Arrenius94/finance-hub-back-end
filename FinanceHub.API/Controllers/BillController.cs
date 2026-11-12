@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using FinanceHub.API.ExtensionsErrors;
 using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.Interfaces.Services;
@@ -6,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceHub.API.Controllers;
+
 [Route("api/[controller]")]
 [Authorize]
 [ApiController]
@@ -13,7 +13,7 @@ namespace FinanceHub.API.Controllers;
 public class BillController : ControllerBase
 {
     private readonly IBillService _billService;
-    
+
     public BillController(IBillService billService)
     {
         _billService = billService;
@@ -21,7 +21,7 @@ public class BillController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> CreateBill([FromBody] CreateBillRequest billRequest,  CancellationToken ct)
+    public async Task<IActionResult> CreateBill([FromBody] CreateBillRequest billRequest, CancellationToken ct)
     {
         var result = await _billService.CreateBillAsync(billRequest, ct);
         if (result.IsError)
@@ -35,12 +35,12 @@ public class BillController : ControllerBase
     public async Task<IActionResult> GetDashboardMetrics(CancellationToken ct)
     {
         var result = await _billService.GetDashboardMetricsAsync(ct);
-        if (result.IsError) 
+        if (result.IsError)
             return result.ToActionResult();
-        
+
         return Ok(result.Value);
     }
-    
+
     [Authorize]
     [HttpGet("dashboard-graphics")]
     public async Task<IActionResult> GetDashboardGraphics([FromQuery] DashboarGraphicFilter filter, CancellationToken ct)
@@ -51,7 +51,7 @@ public class BillController : ControllerBase
 
         return Ok(result.Value);
     }
-    
+
     [Authorize]
     [HttpPost("payment-bills")]
     public async Task<IActionResult> PayBillList([FromBody] PayBillsListRequest request, CancellationToken ct)
@@ -62,7 +62,7 @@ public class BillController : ControllerBase
 
         return Ok();
     }
-    
+
     [Authorize]
     [HttpDelete]
     public async Task<IActionResult> DeleteBillList([FromBody] DeleteBillsRequest request, CancellationToken ct)
@@ -73,4 +73,25 @@ public class BillController : ControllerBase
 
         return Ok();
     }
+
+    [Authorize]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByIdBill(int id, CancellationToken ct)
+    {
+        var result = await _billService.GetBillIdAsync(id, ct);
+        if (result.IsError)
+            return result.ToActionResult();
+        return Ok(result.Value);
+    }
+
+    [Authorize]
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateBill(int id, [FromBody] UpdateBill request, CancellationToken ct)
+    {
+        var result = await _billService.UpdateBillAsync(id, request, ct);
+        if (result.IsError)
+            return result.ToActionResult();
+        return Ok();
+    }
+
 }

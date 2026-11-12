@@ -7,4 +7,5 @@ public class CreateBillRequest
     public DateTime DateDue { get; set; }
     public DateTime? DatePayment  { get; set; }
     public int CategoryId { get; set; }
+    public int? InstallmentCount { get; set; }
 }

@@ -1,7 +1,6 @@
 using ErrorOr;
 using FinanceHub.Application.Common;
 using FinanceHub.Application.Errors;
-using FinanceHub.Domain.DTOS.Input.Bill;
 using FinanceHub.Domain.DTOS.Input.Category;
 using FinanceHub.Domain.DTOS.Output.Category;
 using FinanceHub.Domain.Entities;
@@ -99,7 +98,7 @@ public class CategoryService : ICategoryService
         return Result.Success;
     }
 
-    public async Task<ErrorOr<CategoryDetailView>> GetByIdAsync(int id, BillFilter filter, CancellationToken ct)
+    public async Task<ErrorOr<CategoryDetailView>> GetByIdAsync(int id, CategoryBillsFilter filter, CancellationToken ct)
     {
         var userId = _currentUser.UserId;
         var result = await _categoryRepository.GetViewByIdAsync(id, userId, filter, ct);
