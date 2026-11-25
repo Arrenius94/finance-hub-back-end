@@ -60,16 +60,6 @@ public class CategoryRepository : ICategoryRepository
         return await query.ToPagedListAsync(filter.PageIndex, filter.PageSize, ct);
     }
 
-    public async Task<bool> HasPendingBillsAsync(int categoryId)
-    {
-        var result = await _dbContext.Bills
-            .AnyAsync(b => b.CategoryId == categoryId &&
-                           (b.DatePayment == null ||
-                            b.BillStatus == EBillStatus.Pending ||
-                            b.BillStatus == EBillStatus.Overdue));
-        return result;
-    }
-
     public async Task DeleteAsync(Category category)
     {
         _dbContext.Categories.Remove(category);
@@ -113,6 +103,7 @@ public class CategoryRepository : ICategoryRepository
                     : b.DateDue < day
                         ? EBillStatus.Overdue
                         : EBillStatus.Pending,
+                CategoryId = b.CategoryId,
                 InstallmentNumber = b.InstallmentNumber,
                 TotalInstallments = b.TotalInstallments
             })
@@ -147,5 +138,35 @@ public class CategoryRepository : ICategoryRepository
             bills = bills.Where(b => b.DateDue <= filter.EndDate);
 
         return bills;
+    }
+
+    public async Task<bool> ExistsByNameAsync(int userId, string name, int? ignoreCategoryId = null)
+    {
+        var normalized = name.ToLower();
+
+        return await _dbContext.Categories
+            .AsNoTracking()
+            .AnyAsync(c => c.UserId == userId
+                        && c.Name.ToLower() == normalized
+                        && (ignoreCategoryId == null || c.Id != ignoreCategoryId));
+    }
+
+    public async Task MoveBillsAndDeleteAsync(Category category, int targetCategoryId, int userId, CancellationToken ct)
+    {
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync(ct);
+
+        await _dbContext.Bills
+            .Where(b => b.CategoryId == category.Id && b.UserId == userId)
+            .ExecuteUpdateAsync(s => s.SetProperty(b => b.CategoryId, targetCategoryId), ct);
+
+        _dbContext.Categories.Remove(category);
+        await _dbContext.SaveChangesAsync(ct);
+
+        await transaction.CommitAsync(ct);
+    }
+
+    public async Task<bool> HasAnyBillsAsync(int categoryId)
+    {
+        return await _dbContext.Bills.AnyAsync(b => b.CategoryId == categoryId);
     }
 }

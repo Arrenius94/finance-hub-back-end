@@ -4,12 +4,22 @@ namespace FinanceHub.Domain.Entities;
 
 public class Bill : BaseEntity
 {
-    public Bill(string description, decimal value, DateTime dateDue, DateTime? datePayment, int categoryId, Guid? installmentGroupId = null, int installmentNumber = 1, int totalInstallments = 1)
+    public Bill(
+        string description,
+        decimal value,
+        DateTime dateDue,
+        DateTime? datePayment,
+        int userId,
+        int categoryId,
+        Guid? installmentGroupId = null,
+        int installmentNumber = 1,
+        int totalInstallments = 1)
     {
         Description = description;
         Value = value;
         DateDue = dateDue;
         DatePayment = GetDatePayment(datePayment);
+        UserId = userId;
         CategoryId = categoryId;
         InstallmentGroupId = installmentGroupId;
         InstallmentNumber = installmentNumber;
@@ -23,8 +33,13 @@ public class Bill : BaseEntity
     public DateTime DateDue { get; private set; }
     public DateTime? DatePayment { get; private set; }
     public EBillStatus BillStatus { get; private set; }
+
+    public int UserId { get; private set; }
+    public virtual User User { get; private set; } = null!;
+
     public int CategoryId { get; private set; }
-    public virtual Category Category { get; private set; }
+    public virtual Category Category { get; private set; } = null!;
+
     public Guid? InstallmentGroupId { get; private set; }
     public int InstallmentNumber { get; private set; } = 1;
     public int TotalInstallments { get; private set; } = 1;
@@ -38,15 +53,15 @@ public class Bill : BaseEntity
 
         if (payment.TimeOfDay == TimeSpan.Zero)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
-            return payment.Date
+            payment = payment.Date
                 .AddHours(now.Hour)
                 .AddMinutes(now.Minute)
                 .AddSeconds(now.Second);
         }
 
-        return payment;
+        return DateTime.SpecifyKind(payment, DateTimeKind.Utc);
     }
 
     public void RegisterPayment()

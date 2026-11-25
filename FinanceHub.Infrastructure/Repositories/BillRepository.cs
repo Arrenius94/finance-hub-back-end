@@ -11,6 +11,7 @@ namespace FinanceHub.Infrastructure.Repositories;
 public class BillRepository : IBillRepository
 {
     private readonly FinanceHubDbContext _dbContext;
+
     public BillRepository(FinanceHubDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -28,13 +29,14 @@ public class BillRepository : IBillRepository
     {
         _dbContext.Bills.Add(bill);
     }
+
     public async Task<List<BillQueryResult>> GetThreeMetricsAsync(int userId, CancellationToken ct)
     {
         var today = DateTime.UtcNow.Date;
 
         var query = _dbContext.Bills
             .AsNoTracking()
-            .Where(x => x.Category.UserId == userId)
+            .Where(x => x.UserId == userId)
             .GroupBy(b => b.DatePayment != null
                 ? EBillStatus.Paid
                 : b.DateDue < today
@@ -45,29 +47,23 @@ public class BillRepository : IBillRepository
                 g.Count(),
                 g.Sum(x => x.Value)
             ));
-        var result = await query.ToListAsync(ct);
 
-        return result;
+        return await query.ToListAsync(ct);
     }
+
     public async Task<List<DashboardGraphicView>> GetGraphicDataAsync(DashboarGraphicFilter filter, CancellationToken ct)
     {
         var query = _dbContext.Bills.AsNoTracking()
-            .Where(b => b.Category.UserId == filter.UserId);
+            .Where(b => b.UserId == filter.UserId);
 
         if (filter.Month.HasValue)
-        {
             query = query.Where(b => b.DateDue.Month == filter.Month);
-        }
 
         if (filter.Year.HasValue)
-        {
             query = query.Where(b => b.DateDue.Year == filter.Year);
-        }
 
-        if (filter.CategoryTypes is { Count: > 0 })
-        {
-            query = query.Where(b => filter.CategoryTypes.Contains(b.Category.CategoryType));
-        }
+        if (filter.CategoryIds is { Count: > 0 })
+            query = query.Where(b => filter.CategoryIds.Contains(b.CategoryId));
 
         var result = await query
             .GroupBy(b => b.Category.Name)
@@ -83,28 +79,24 @@ public class BillRepository : IBillRepository
 
     public async Task<List<Bill>> GetByIdsPayment(List<int> billIds, int userId, CancellationToken ct)
     {
-        var result = await _dbContext.Bills
-            .Include(b => b.Category)
-            .ThenInclude(c => c.User)
-            .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId && b.BillStatus != EBillStatus.Paid)
+        return await _dbContext.Bills
+            .Include(b => b.User)
+            .Where(b => billIds.Contains(b.Id) && b.UserId == userId && b.BillStatus != EBillStatus.Paid)
             .ToListAsync(ct);
-
-        return result;
     }
 
     public async Task<List<int>> GetByIdsDeleteAsync(int[] billIds, int userId, CancellationToken ct)
     {
-        var result = await _dbContext.Bills
-            .Where(b => billIds.Contains(b.Id) && b.Category.UserId == userId)
+        return await _dbContext.Bills
+            .Where(b => billIds.Contains(b.Id) && b.UserId == userId)
             .Select(b => b.Id)
             .ToListAsync(ct);
-        return result;
     }
 
     public async Task RemoveRangeAsync(List<int> billsIds, int userId, CancellationToken ct)
     {
         await _dbContext.Bills
-            .Where(b => billsIds.Contains(b.Id) && b.Category.UserId == userId)
+            .Where(b => billsIds.Contains(b.Id) && b.UserId == userId)
             .ExecuteDeleteAsync(ct);
     }
 
@@ -114,25 +106,22 @@ public class BillRepository : IBillRepository
         var inTreeDays = today.Date.AddDays(3);
         var inSevenDays = today.Date.AddDays(7);
 
-        var query = await _dbContext.Bills
-            .Include(b => b.Category)
-            .ThenInclude(c => c.User)
+        return await _dbContext.Bills
+            .Include(b => b.User)
             .Where(b => b.BillStatus == EBillStatus.Pending && (
                 b.DateDue.Date == dateToday ||
                 b.DateDue.Date == inTreeDays ||
-                b.DateDue.Date == inSevenDays
-            ))
+                b.DateDue.Date == inSevenDays))
             .ToListAsync(ct);
-        ;
-        return query;
     }
 
     public async Task<BillView?> GetByIdAsync(int userId, int id, CancellationToken ct)
     {
         var day = DateTime.UtcNow.AddHours(-3).Date;
-        var bill = await _dbContext.Bills
+
+        return await _dbContext.Bills
             .AsNoTracking()
-            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .Where(b => b.Id == id && b.UserId == userId)
             .Select(b => new BillView
             {
                 Id = b.Id,
@@ -141,15 +130,15 @@ public class BillRepository : IBillRepository
                 DateDue = b.DateDue,
                 DatePayment = b.DatePayment,
                 BillStatus = b.DatePayment != null
-                                ? EBillStatus.Paid
-                                : b.DateDue < day
-                                    ? EBillStatus.Overdue
-                                    : EBillStatus.Pending,
+                    ? EBillStatus.Paid
+                    : b.DateDue < day
+                        ? EBillStatus.Overdue
+                        : EBillStatus.Pending,
+                CategoryId = b.CategoryId,
                 InstallmentNumber = b.InstallmentNumber,
                 TotalInstallments = b.TotalInstallments
             })
             .FirstOrDefaultAsync(ct);
-        return bill;
     }
 
     public async Task<BillDetailView?> GetInstallmentsByBillIdAsync(int userId, int id, CancellationToken ct)
@@ -158,7 +147,7 @@ public class BillRepository : IBillRepository
 
         var source = await _dbContext.Bills
             .AsNoTracking()
-            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .Where(b => b.Id == id && b.UserId == userId)
             .Select(b => new { b.Id, b.InstallmentGroupId })
             .FirstOrDefaultAsync(ct);
 
@@ -167,7 +156,7 @@ public class BillRepository : IBillRepository
 
         var query = _dbContext.Bills
             .AsNoTracking()
-            .Where(b => b.Category.UserId == userId);
+            .Where(b => b.UserId == userId);
 
         if (source.InstallmentGroupId.HasValue)
             query = query.Where(b => b.InstallmentGroupId == source.InstallmentGroupId);
@@ -189,6 +178,7 @@ public class BillRepository : IBillRepository
                     : b.DateDue < day
                         ? EBillStatus.Overdue
                         : EBillStatus.Pending,
+                CategoryId = b.CategoryId,
                 InstallmentNumber = b.InstallmentNumber,
                 TotalInstallments = b.TotalInstallments
             })
@@ -212,7 +202,7 @@ public class BillRepository : IBillRepository
     public async Task<Bill?> GetBillIdAsync(int id, int userId, CancellationToken ct)
     {
         return await _dbContext.Bills
-            .Where(b => b.Id == id && b.Category.UserId == userId)
+            .Where(b => b.Id == id && b.UserId == userId)
             .FirstOrDefaultAsync(ct);
     }
 }

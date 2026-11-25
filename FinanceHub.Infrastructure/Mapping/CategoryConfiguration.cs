@@ -28,15 +28,13 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .IsRequired()
             .HasColumnName("user_id");
 
-       
+        builder.HasIndex(x => new { x.UserId, x.Name })
+            .IsUnique()
+            .HasDatabaseName("ux_categories_user_id_name");
+
         builder.HasOne(x => x.User)
             .WithMany(x => x.Categories)
             .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasMany(x => x.Bills)
-            .WithOne(x => x.Category)
-            .HasForeignKey(x => x.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

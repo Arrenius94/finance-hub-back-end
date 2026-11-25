@@ -12,4 +12,5 @@ public class BillView
     public EBillStatus BillStatus { get; set; }
     public int InstallmentNumber { get; set; }
     public int TotalInstallments { get; set; }
+    public int CategoryId { get; set; }
 }

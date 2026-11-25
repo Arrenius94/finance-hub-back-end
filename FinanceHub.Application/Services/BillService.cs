@@ -34,17 +34,20 @@ public class BillService : IBillService
 
     public async Task<ErrorOr<int>> CreateBillAsync(CreateBillRequest request, CancellationToken ct)
     {
-        var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
-        if (category is null)
-            return AppErrors.Category.NotFound;
-
         var userId = _currentUser.UserId;
         var user = await _userRepository.GetByIdAsync(userId);
         if (user is null)
             return AppErrors.User.NotFound;
 
+        var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
+        if (category is null)
+            return AppErrors.Category.NotFound;
+
         if (category.UserId != userId)
             return AppErrors.Category.Unauthorized;
+
+        if (category.CategoryType != ECategoryType.Expense)
+            return AppErrors.Category.WrongNature;
 
         var totalInstallments = request.InstallmentCount ?? 1;
         var groupId = totalInstallments > 1 ? Guid.NewGuid() : (Guid?)null;
@@ -64,11 +67,12 @@ public class BillService : IBillService
                 value,
                 due,
                 i == 1 ? request.DatePayment : null,
+                userId,
                 request.CategoryId,
                 groupId,
                 i,
                 totalInstallments
-             );
+            );
 
             _billRepository.Added(bill);
             first ??= bill;
@@ -125,7 +129,7 @@ public class BillService : IBillService
         if (userId < 0)
             return AppErrors.User.NotFound;
 
-        filter.UserId = userId;
+        filter = filter with { UserId = userId };
 
         var result = await _billRepository.GetGraphicDataAsync(filter, ct);
 
@@ -146,7 +150,7 @@ public class BillService : IBillService
         if (bills.Count < request.BillIds.Count)
             return AppErrors.Bill.DifferentList;
 
-        var user = bills.First().Category.User;
+        var user = bills.First().User;
 
         var totalAmount = bills.Sum(b => b.Value);
         if ((user.Wallet ?? 0m) < totalAmount)

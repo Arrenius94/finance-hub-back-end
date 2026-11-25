@@ -39,25 +39,34 @@ public static class AppErrors
 
     public static class Category
     {
-        public static Error NameError =>
-            Error.Conflict(code: "Category.NameInUse", description: "Nome da categoria é obrigatorio.");
+        public static Error NameRequired =>
+            Error.Validation(code: "Category.NameRequired", description: "Informe o nome da categoria.");
 
-        public static Error TypeCategoryError =>
-            Error.Conflict(code: "Category.TypeError", description: "Tipo da categoria é obrigatorio.");
+        public static Error NameInUse =>
+            Error.Conflict(code: "Category.NameInUse", description: "Já existe uma categoria com esse nome.");
+
+        public static Error NatureRequired =>
+            Error.Validation(code: "Category.NatureRequired", description: "Informe se a categoria é de despesa ou receita.");
+
+        public static Error WrongNature =>
+            Error.Validation(code: "Category.WrongNature", description: "Esta categoria não pertence a este tipo de conta.");
 
         public static Error NotFound =>
-            Error.NotFound(code: "Category.NotFound", description: "Categoria não encontrado.");
+            Error.NotFound(code: "Category.NotFound", description: "Categoria não encontrada.");
 
         public static Error Unauthorized =>
             Error.Unauthorized(code: "Category.Unauthorized", description: "Acesso negado para esta categoria.");
 
-        public static Error HasPendingBills(string categoryName) =>
+        public static Error SameCategory =>
+            Error.Validation(code: "Category.SameCategory", description: "Escolha uma categoria diferente para receber as contas.");
+
+        public static Error HasBills(string categoryName) =>
             Error.Validation(
-                code: "Category.HasPendingBills",
-                description: $"A categoria '{categoryName}' possui contas pendentes.",
+                code: "Category.HasBills",
+                description: $"A categoria '{categoryName}' possui contas vinculadas. Mova essas contas antes de excluir.",
                 metadata: new Dictionary<string, object>
                 {
-                    {"categoryName", categoryName}
+                    { "categoryName", categoryName }
                 }
             );
     }

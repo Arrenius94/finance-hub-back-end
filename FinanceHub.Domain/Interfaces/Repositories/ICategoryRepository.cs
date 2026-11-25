@@ -11,7 +11,9 @@ public interface ICategoryRepository
     Task <Category?> GetByIdAsync(int id);
     Task UpdateAsync(Category category);
     Task<PagedResult<CategoryView>> GetAllAsync(int userId, CategoryFilter filter, CancellationToken ct);
-    Task<bool> HasPendingBillsAsync(int categoryId);
+    Task<bool> ExistsByNameAsync(int userId, string name, int? ignoreCategoryId = null);
+    Task<bool> HasAnyBillsAsync(int categoryId);
     Task DeleteAsync(Category category);
+    Task MoveBillsAndDeleteAsync(Category category, int targetCategoryId, int userId, CancellationToken ct);
     Task<CategoryDetailView?> GetViewByIdAsync(int id, int userId, CategoryBillsFilter filter, CancellationToken ct);
 }

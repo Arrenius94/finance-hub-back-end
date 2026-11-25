@@ -61,7 +61,7 @@ public class Worker : BackgroundService
                 }
             })
             .Where(x => x.Type != null)
-            .GroupBy(x => new { UserId = x.Bill.Category.UserId, Type = x.Type!.Value });
+            .GroupBy(x => new { UserId = x.Bill.UserId, Type = x.Type!.Value });
 
         
         // PERCORER CADA GRUPO DO USUARIO COM O TIPO DAS CONSTAS ENOTFCATION E AS LISTAS DOS IDS DAS CONSTAS E VER QUAL DOS IDS DAS BILLS JA FOI NOTIFICADA
@@ -80,7 +80,7 @@ public class Worker : BackgroundService
 
             if (billsToNotify.Count <= 0) continue;
 
-            var user = billsToNotify.First().Category.User;
+            var user = billsToNotify.First().User;
 
             var (subject, textDetail) = notificationType switch
             {

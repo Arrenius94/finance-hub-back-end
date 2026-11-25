@@ -134,6 +134,10 @@ namespace FinanceHub.Infrastructure.Migrations
                         .HasDefaultValue(1)
                         .HasColumnName("total_installments");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
                     b.Property<decimal>("Value")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")
@@ -145,6 +149,9 @@ namespace FinanceHub.Infrastructure.Migrations
 
                     b.HasIndex("InstallmentGroupId")
                         .HasDatabaseName("ix_bills_installment_group_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_bills_user_id");
 
                     b.ToTable("bills", (string)null);
                 });
@@ -178,7 +185,9 @@ namespace FinanceHub.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "Name")
+                        .IsUnique()
+                        .HasDatabaseName("ux_categories_user_id_name");
 
                     b.ToTable("categories", (string)null);
                 });
@@ -297,10 +306,18 @@ namespace FinanceHub.Infrastructure.Migrations
                     b.HasOne("FinanceHub.Domain.Entities.Category", "Category")
                         .WithMany("Bills")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FinanceHub.Domain.Entities.User", "User")
+                        .WithMany("Bills")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinanceHub.Domain.Entities.Category", b =>
@@ -333,6 +350,8 @@ namespace FinanceHub.Infrastructure.Migrations
             modelBuilder.Entity("FinanceHub.Domain.Entities.User", b =>
                 {
                     b.Navigation("AccountReceivables");
+
+                    b.Navigation("Bills");
 
                     b.Navigation("Categories");
                 });

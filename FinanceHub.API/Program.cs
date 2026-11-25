@@ -98,6 +98,18 @@ builder.Services.AddFluentValidation(x =>
     x.RegisterValidatorsFromAssemblyContaining<CreateUserValidation>();
 });
 
+// CORS para o frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://localhost:5173",
+                "http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 // JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -164,6 +176,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 app.UseAuthentication();
 app.UseAuthorization();

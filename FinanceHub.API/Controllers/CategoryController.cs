@@ -58,9 +58,12 @@ public class CategoryController : ControllerBase
 
     [Authorize]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+    public async Task<IActionResult> DeleteCategory(
+        [FromRoute] int id,
+        [FromQuery] int? moveToCategoryId,
+        CancellationToken ct)
     {
-        var result = await _categoryService.DeleteCategoryAsync(id);
+        var result = await _categoryService.DeleteCategoryAsync(id, moveToCategoryId, ct);
 
         if (result.IsError)
             return result.ToActionResult();

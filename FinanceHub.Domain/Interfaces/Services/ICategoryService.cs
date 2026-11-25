@@ -10,6 +10,6 @@ public interface ICategoryService
     Task<ErrorOr<int>> CreateCategoryAsync(CreateCategory request);
     Task<ErrorOr<Success>> UpdateCategoryAsync(int categoryId, UpdateCategory request);
     Task<ErrorOr<PagedResult<CategoryView>>> GetAllAsync(CategoryFilter filter, CancellationToken ct);
-    Task<ErrorOr<Success>> DeleteCategoryAsync(int categoryId);
+    Task<ErrorOr<Success>> DeleteCategoryAsync(int categoryId, int? moveToCategoryId = null, CancellationToken ct = default);
     Task<ErrorOr<CategoryDetailView>> GetByIdAsync(int id, CategoryBillsFilter filter, CancellationToken ct);
 }

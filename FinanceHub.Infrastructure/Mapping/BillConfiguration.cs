@@ -8,7 +8,6 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
 {
     public void Configure(EntityTypeBuilder<Bill> builder)
     {
-
         builder.ToTable("bills");
 
         builder.HasKey(b => b.Id);
@@ -38,6 +37,10 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
             .IsRequired()
             .HasColumnName("bill_status");
 
+        builder.Property(x => x.UserId)
+            .IsRequired()
+            .HasColumnName("user_id");
+
         builder.Property(x => x.CategoryId)
             .IsRequired()
             .HasColumnName("category_id");
@@ -50,6 +53,9 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
         builder.HasIndex(x => x.InstallmentGroupId)
             .HasDatabaseName("ix_bills_installment_group_id");
 
+        builder.HasIndex(x => x.UserId)
+            .HasDatabaseName("ix_bills_user_id");
+
         builder.Property(x => x.InstallmentNumber)
             .HasColumnName("installment_number")
             .IsRequired()
@@ -60,9 +66,14 @@ public class BillConfiguration : IEntityTypeConfiguration<Bill>
             .IsRequired()
             .HasDefaultValue(1);
 
+        builder.HasOne(x => x.User)
+            .WithMany(u => u.Bills)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Bills)
             .HasForeignKey(x => x.CategoryId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

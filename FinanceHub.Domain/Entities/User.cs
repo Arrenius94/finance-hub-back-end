@@ -25,6 +25,7 @@ public class User : BaseEntity
     
     public ICollection<Category> Categories { get; private set; } = new List<Category>();
     public ICollection<AccountReceivable>  AccountReceivables { get; private set; } = new List<AccountReceivable>();
+    public ICollection<Bill> Bills { get; private set; } = new List<Bill>();
     
     public void IncreaseValue(decimal value)
     {
